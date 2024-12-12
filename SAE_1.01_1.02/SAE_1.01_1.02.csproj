@@ -9,4 +9,118 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="img prof\newRunner_01.gif" />
+    <None Remove="img prof\newRunner_02.gif" />
+    <None Remove="img prof\newRunner_03.gif" />
+    <None Remove="img prof\newRunner_04.gif" />
+    <None Remove="img prof\newRunner_05.gif" />
+    <None Remove="img prof\newRunner_06.gif" />
+    <None Remove="img prof\newRunner_07.gif" />
+    <None Remove="img prof\newRunner_08.gif" />
+    <None Remove="img prof\obstacle.png" />
+    <None Remove="img2\FondFromage.jpg.png" />
+    <None Remove="img\block.png" />
+    <None Remove="img\fond_ecran_automne.jpg" />
+    <None Remove="img\fond_ecran_autoroute.jpg" />
+    <None Remove="img\fond_ecran_hiver.jpg" />
+    <None Remove="img\fond_ecran_menu.jpg" />
+    <None Remove="img\fromage.png" />
+    <None Remove="img\maison_fromage.png" />
+    <None Remove="img\mouse.png" />
+    <None Remove="img\newRunner_01_gauche.gif" />
+    <None Remove="img\newRunner_02_gauche.gif" />
+    <None Remove="img\newRunner_03_gauche.gif" />
+    <None Remove="img\newRunner_04_gauche.gif" />
+    <None Remove="img\newRunner_05_gauche.gif" />
+    <None Remove="img\newRunner_06_gauche.gif" />
+    <None Remove="img\newRunner_07_gauche.gif" />
+    <None Remove="img\newRunner_08_gauche.gif" />
+    <None Remove="newRunner_01.gif" />
+    <None Remove="newRunner_01_gauche.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img prof\newRunner_01.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img prof\newRunner_02.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img prof\newRunner_03.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img prof\newRunner_04.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img prof\newRunner_05.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img prof\newRunner_06.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img prof\newRunner_07.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img prof\newRunner_08.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img prof\obstacle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img2\FondFromage.jpg.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\block.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fond_ecran_automne.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fond_ecran_autoroute.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fond_ecran_hiver.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fond_ecran_menu.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fromage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\maison_fromage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\mouse.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\newRunner_01_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\newRunner_02_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\newRunner_03_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\newRunner_04_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\newRunner_05_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\newRunner_06_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\newRunner_07_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\newRunner_08_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="newRunner_01.gif" />
+    <Resource Include="newRunner_01_gauche.gif" />
+  </ItemGroup>
+
 </Project>

@@ -6,7 +6,104 @@
         xmlns:local="clr-namespace:SAE_1._01_1._02"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.Background>
+        <ImageBrush ImageSource="/img/fond_ecran_automne.jpg"/>
+    </Window.Background>
 
-    </Grid>
+    <Canvas
+        x:Name="mainCanvas"
+        Margin="0,0,0,33"
+        Focusable="True"
+        KeyDown="Window_KeyDown"
+        KeyUp="Window_KeyUp">
+
+
+
+        <Canvas.Background>
+            <ImageBrush x:Name="imageFond" ImageSource="/img/fond_ecran_automne.jpg" />
+        </Canvas.Background>
+
+        <Image
+            x:Name="imgNewRunner01_Droite"
+            Canvas.Left="239"
+            Canvas.Top="200"
+            Width="108"
+            Height="122"
+            Source="/newRunner_01.gif"
+            Stretch="Fill" />
+        <Image
+            x:Name="imgNewRunner01_Gauche"
+            Canvas.Left="455"
+            Canvas.Top="179"
+            Width="108"
+            Height="121"
+            Source="/img/newRunner_02_Gauche.gif" Stretch="Fill" >
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/newRunner_01_gauche.gif"/>
+            </Image.OpacityMask>
+        </Image>
+
+        <Rectangle
+            Name="background"
+            Canvas.Left="0"
+            Width="1262"
+            Height="400">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/fond_ecran_automne.jpg" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle
+            Name="background2"
+            Canvas.Left="1262"
+            Width="1262"
+            Height="400">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/fond_ecran_automne.jpg" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle
+            Name="sol"
+            Canvas.Left="0"
+            Canvas.Top="368"
+            Width="800"
+            Height="32"
+            Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <Rectangle
+            Name="joueur"
+            Canvas.Left="46"
+            Canvas.Top="162"
+            Width="67"
+            Height="99"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img prof/newRunner_01.gif" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle
+            Name="obstacle"
+            Canvas.Left="721"
+            Canvas.Top="320"
+            Width="50"
+            Height="178">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/block.png" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label
+            Name="scoreText"
+            Content="Score: 0"
+            FontSize="22"
+            FontWeight="Bold" />
+        <Rectangle
+            Name="background3"
+            Canvas.Left="-1262"
+            Width="1262"
+            Height="400">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/fond_ecran_automne.jpg" />
+            </Rectangle.Fill>
+        </Rectangle>
+
+    </Canvas>
 </Window>
