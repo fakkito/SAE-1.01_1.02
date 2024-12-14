@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Drawing;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,6 +25,7 @@ namespace SAE_1._01_1._02
         Rect joueurHitBox;
         Rect solHitBox;
         Rect obstacleHitBox;
+        Rect platformsHitBox;
 
         bool saut;
         bool toucherSol;
@@ -37,12 +39,14 @@ namespace SAE_1._01_1._02
 
         double spriteIndex = 0;
 
-        private static BitmapImage newRunner01_Droite;
-        private static BitmapImage newRunner01_Gauche;
+        private static BitmapImage newRunner_01_Droite;
+        private static BitmapImage newRunner_01_Gauche;
+        private static BitmapImage platforms;
 
         ImageBrush playerSprite = new ImageBrush();
         ImageBrush backgroundSprite = new ImageBrush();
         ImageBrush obstacleSprite = new ImageBrush();
+        ImageBrush plateformeSprite = new ImageBrush();
 
         int[] obstaclePosition = { 320, 310, 300, 305, 315 };
 
@@ -72,46 +76,31 @@ namespace SAE_1._01_1._02
 
         private void InitBitmaps()
         {
-            imgNewRunner01_Droite.Source = new BitmapImage(new Uri("pack://application:,,,/img prof/newRunner_01.gif"));
-            imgNewRunner01_Gauche.Source = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_01_gauche.gif"));
+            newRunner_01_Droite = new BitmapImage(new Uri("pack://application:,,,/img prof/newRunner_01.gif"));
+            newRunner_01_Gauche = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_01_gauche.gif"));
 
-            imgNewRunner01_Droite.Source = newRunner01_Droite;
-            imgNewRunner01_Gauche.Source = newRunner01_Gauche;
-
+            imgNewRunner01_Droite.Source = newRunner_01_Droite;
         }
 
 
         private void GameEngine(object? sender, EventArgs e)
         {
+            // When launching the game, the player goes down to hit the ground
+            Canvas.SetTop(joueur, Canvas.GetTop(joueur) + speed);
 
-            // Moves the player(joueur) vertically by the value of speed(down if positive, up if negative).
-            if (joueurHitBox.IntersectsWith(solHitBox))
-            {
-                RunSprite(spriteIndex);
-                toucherSol = true;
-                if (!toucherSol)
-                {
-                    Canvas.SetTop(joueur, Canvas.GetTop(joueur) + speed);
-                }
-            }
-            Console.WriteLine(toucherSol);
             // moves the obstacle horizontally to the left by 5 units.
             Canvas.SetLeft(obstacle, Canvas.GetLeft(obstacle) - 5);
 
-            scoreText.Content = "Score: 0" + score;
+            scoreText.Content = "Score: 0" + score; 
 
             // Setup 3 Hitboxs
-
-            joueurHitBox = new Rect(Canvas.GetLeft(joueur), Canvas.GetTop(joueur), joueur.Width - 25, joueur.Height - 15);
+            joueurHitBox = new Rect(Canvas.GetLeft(joueur), Canvas.GetTop(joueur), joueur.Width - 15, joueur.Height);
             obstacleHitBox = new Rect(Canvas.GetLeft(obstacle), Canvas.GetTop(obstacle), obstacle.Width, obstacle.Height);
             solHitBox = new Rect(Canvas.GetLeft(sol), Canvas.GetTop(sol), sol.Width, sol.Height);
 
             // Actions when the player lands on the floor
-
-
             if (joueurHitBox.IntersectsWith(solHitBox))
             {
-                RunSprite(spriteIndex);
                 speed = 0;
 
                 // Position the player just above the ground (sol)
@@ -131,22 +120,11 @@ namespace SAE_1._01_1._02
                 // Update sprite based on running animation
 
             }
-            else
-            {
-                // Only change vertical position if not on ground
-                if (!toucherSol)
-                {
-                    Canvas.SetTop(joueur, Canvas.GetTop(joueur) + speed);
-                }
-                // +speed Make the player switch image to make seems like he run
-            }
-
-
-
+            
             if (saut == true)
             {
                 // Reduce the player speed when jumping
-                speed = -9;
+                speed = -10;
 
                 // Force limits how far the player can actually jump 
                 force -= 1;
@@ -184,6 +162,7 @@ namespace SAE_1._01_1._02
 
             if (gameOver == true)
             {
+                // Visibilité de la HitBox
                 obstacle.Stroke = Brushes.Black;
                 obstacle.StrokeThickness = 1;
 
@@ -194,11 +173,13 @@ namespace SAE_1._01_1._02
             }
             else
             {
+                // Visibilité de la HitBox
                 joueur.StrokeThickness = 0;
                 obstacle.StrokeThickness = 0;
             }
             RunSprite(spriteIndex);
-
+            // moves the obstacle horizontally to the left by 5 units.
+            Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme));
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -208,9 +189,10 @@ namespace SAE_1._01_1._02
                 StartGame();
             }
 
+            // Pour faire défiler les fonds quand on va à droite
             if (e.Key == Key.Right && gameOver == false)
             {
-                imgNewRunner01_Droite.Source = newRunner01_Droite;
+                imgNewRunner01_Droite.Source = newRunner_01_Droite;
                 Canvas.SetLeft(imgNewRunner01_Droite, Canvas.GetLeft(imgNewRunner01_Droite) + 10);
                 if (Canvas.GetLeft(imgNewRunner01_Droite) > this.ActualWidth - imgNewRunner01_Droite.Width)
                     Canvas.SetLeft(imgNewRunner01_Droite, this.ActualWidth - imgNewRunner01_Droite.Width);
@@ -235,9 +217,11 @@ namespace SAE_1._01_1._02
 
             }
 
+            // Pour faire défiler les fonds quand on va à gauche
             if (e.Key == Key.Left && gameOver == false)
             {
-                imgNewRunner01_Droite.Source = newRunner01_Gauche;
+                joueur.Fill = new ImageBrush(newRunner_01_Gauche); // When i press Left, the image is "newRunner_01_Gauche.gif"
+                imgNewRunner01_Droite.Source = newRunner_01_Gauche;
                 Canvas.SetLeft(imgNewRunner01_Droite, Canvas.GetLeft(imgNewRunner01_Droite) - 10);
                 if (Canvas.GetLeft(imgNewRunner01_Droite) < 0)
                     Canvas.SetLeft(imgNewRunner01_Droite, 0);
@@ -251,7 +235,6 @@ namespace SAE_1._01_1._02
 
                 // Loop the backgrounds when it goes off-screen
 
-
                 if (Canvas.GetLeft(background3) > 0)
                 {
                     Canvas.SetLeft(background, 0);
@@ -260,6 +243,18 @@ namespace SAE_1._01_1._02
                 }
 
             }
+            // When Escape is press, the timer (timerJeu) stops.
+            if (e.Key == Key.Escape)
+            {
+                if (timerJeu.IsEnabled)
+                    timerJeu.Stop();
+                else
+                    timerJeu.Start();
+
+            }
+                #if DEBUG
+                Console.WriteLine(e.Key);    // Affichage dans la console de la "Key pressed"
+                #endif
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -268,30 +263,54 @@ namespace SAE_1._01_1._02
             // if the space key is pressed AND jumping boolean is true AND player y location is above 260 pixels
             if (e.Key == Key.Space && !saut && !joueurHitBox.IntersectsWith(obstacleHitBox))
             {
-                if (toucherSol)
-                {
-                    saut = true;     // A voir pour mettre en constantes
-                    force = 15;
-                    speed = -12;
-                    // change the player sprite so it looks like he's jumping
-                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img prof/newRunner_02.gif")); // newRunner_02 use when jumping 
+              saut = true;     
+              force = 15;
+              speed = -12;
 
-                }
+              // change the player sprite so it looks like he's jumping
+              playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img prof/newRunner_02.gif")); // newRunner_02 use when jumping 
+
+                
             }
-            if (e.Key == Key.Space)
-            {
-                toucherSol = false;
-            }
+            
         }
 
+        /*
+        private void Collide(string Dir)
+        {
+            foreach (var x in mainCanvas.Children.OfType<Rectangle>())
+            {
+                if((string)x.Tag == "Collide")
+                {
+                    joueurHitBox = new Rect(Canvas.GetLeft(joueur), Canvas.GetTop(joueur), joueur.Width, joueur.Height);
+                    Rect ToCollide = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+                    if(joueurHitBox.IntersectsWith(ToCollide))
+                    {
+                        if(Dir == "x")
+                        {
+                            Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - speed);
+                            speed = 0;
+                        }
+                        else
+                        {
+                            Canvas.SetTop(joueur, Canvas.GetTop(joueur) + speed);
+                            speed = 0;
+                        }
+                    }
+                }
+            }
+        }
+        */
         private void StartGame()
         {
             Canvas.SetLeft(background, 0);
             Canvas.SetLeft(background2, 1262);
             Canvas.SetLeft(background3, -1262);
 
-            Canvas.SetLeft(joueur, 110);
-            Canvas.SetTop(joueur, solHitBox.Height);
+            // Set the player on the ground when starting
+            Canvas.SetLeft(joueur, 46);
+            Canvas.SetTop(joueur, 270);
 
             Canvas.SetLeft(obstacle, 950);
             Canvas.SetTop(obstacle, 310);
@@ -314,8 +333,7 @@ namespace SAE_1._01_1._02
         private void RunSprite(double i)
         {
 
-            // DIFFERENTS CASE TO MAKE THE PLAYER SPRINT SMOOTHLY
-
+            // DIFFERENTS CASE TO MAKE THE PLAYER SPRINT SMOOTHLY            
             switch (i)
             {
                 case 1:

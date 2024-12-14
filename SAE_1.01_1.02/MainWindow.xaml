@@ -29,17 +29,10 @@
             Canvas.Top="200"
             Width="108"
             Height="122"
-            Source="/newRunner_01.gif"
-            Stretch="Fill" />
-        <Image
-            x:Name="imgNewRunner01_Gauche"
-            Canvas.Left="455"
-            Canvas.Top="179"
-            Width="108"
-            Height="121"
-            Source="/img/newRunner_02_Gauche.gif" Stretch="Fill" >
+            Source="/newRunner_01_gauche.gif"
+            Stretch="Fill" >
             <Image.OpacityMask>
-                <ImageBrush ImageSource="/newRunner_01_gauche.gif"/>
+                <ImageBrush/>
             </Image.OpacityMask>
         </Image>
 
@@ -70,8 +63,9 @@
             Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Top" />
         <Rectangle
             Name="joueur"
+            Tag="User"
             Canvas.Left="46"
-            Canvas.Top="162"
+            Canvas.Top="270"
             Width="67"
             Height="99"
             HorizontalAlignment="Center"
@@ -82,8 +76,8 @@
         </Rectangle>
         <Rectangle
             Name="obstacle"
-            Canvas.Left="721"
-            Canvas.Top="320"
+            Canvas.Left="631"
+            Canvas.Top="418"
             Width="50"
             Height="178">
             <Rectangle.Fill>
@@ -102,6 +96,17 @@
             Height="400">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/fond_ecran_automne.jpg" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle
+             Name="imgPlateforme"
+             Tag="Collide"
+             Canvas.Left="400"
+             Width="120"
+             Height="30" 
+             Canvas.Top="270" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/platforms.png" />
             </Rectangle.Fill>
         </Rectangle>
 
