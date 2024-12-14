@@ -48,7 +48,9 @@ namespace SAE_1._01_1._02
         ImageBrush obstacleSprite = new ImageBrush();
         ImageBrush plateformeSprite = new ImageBrush();
 
-        int[] obstaclePosition = { 320, 310, 300, 305, 315 };
+        int[] obstaclePosition = { 320, 310, 300, 305, 315 }; // Positions à laquelle spawn aléatoirement les obstacles
+        int[] imgPlateformePosition = { 260, 250, 240, 245, 255 }; // Positions à laquelle spawn aléatoirement les plateformes
+
 
         int score = 0;
 
@@ -94,9 +96,10 @@ namespace SAE_1._01_1._02
             scoreText.Content = "Score: 0" + score; 
 
             // Setup 3 Hitboxs
-            joueurHitBox = new Rect(Canvas.GetLeft(joueur), Canvas.GetTop(joueur), joueur.Width - 15, joueur.Height);
+            joueurHitBox = new Rect(Canvas.GetLeft(joueur), Canvas.GetTop(joueur), joueur.Width - 50, joueur.Height);
             obstacleHitBox = new Rect(Canvas.GetLeft(obstacle), Canvas.GetTop(obstacle), obstacle.Width, obstacle.Height);
             solHitBox = new Rect(Canvas.GetLeft(sol), Canvas.GetTop(sol), sol.Width, sol.Height);
+            platformsHitBox = new Rect(Canvas.GetLeft(imgPlateforme), Canvas.GetTop(imgPlateforme), imgPlateforme.Width, imgPlateforme.Height);
 
             // Actions when the player lands on the floor
             if (joueurHitBox.IntersectsWith(solHitBox))
@@ -117,10 +120,26 @@ namespace SAE_1._01_1._02
                     spriteIndex = 1;
                 }
 
-                // Update sprite based on running animation
-
             }
-            
+
+            if (joueurHitBox.IntersectsWith(platformsHitBox))
+            {
+                speed = 0;
+
+                // Vitesse à laquelle les images changent pour faire genre le joueur court
+                spriteIndex += 0.5;
+
+                // Position the player just above the ground (sol)
+                Canvas.SetTop(joueur, Canvas.GetTop(imgPlateforme) - joueur.Height + 1);
+
+                saut = false;
+
+                if (spriteIndex > 8)
+                {
+                    spriteIndex = 1;
+                }
+            }
+
             if (saut == true)
             {
                 // Reduce the player speed when jumping
@@ -152,7 +171,17 @@ namespace SAE_1._01_1._02
 
                 score += 1;
             }
+            if (Canvas.GetLeft(imgPlateforme) < -50)
+            {
+                Canvas.SetLeft(imgPlateforme, 950);
 
+                // Find a position for obstacle in Y between the values in the table obstaclePosition[]
+                // if 0 = 320, if 1 = 310 etc ...
+
+                Canvas.SetTop(imgPlateforme, imgPlateformePosition[rnd.Next(0, imgPlateformePosition.Length)]);
+
+                score += 1;
+            }
             if (joueurHitBox.IntersectsWith(obstacleHitBox))
             {
                 gameOver = true;
@@ -162,9 +191,13 @@ namespace SAE_1._01_1._02
 
             if (gameOver == true)
             {
-                // Visibilité de la HitBox
+                // Visibilité de la HitBox de l'obstacle
                 obstacle.Stroke = Brushes.Black;
                 obstacle.StrokeThickness = 1;
+
+                // Visibilité de la HitBox de la plateforme
+                imgPlateforme.Stroke = Brushes.Blue;
+                imgPlateforme.StrokeThickness = 1;
 
                 joueur.Stroke = Brushes.Red;
                 joueur.StrokeThickness = 1;
@@ -173,13 +206,17 @@ namespace SAE_1._01_1._02
             }
             else
             {
-                // Visibilité de la HitBox
+                // Visibilité de la HitBox de l'obstacle
                 joueur.StrokeThickness = 0;
                 obstacle.StrokeThickness = 0;
+
+                // Visibilité de la HitBox de la plateforme
+                imgPlateforme.StrokeThickness = 0;
+
             }
             RunSprite(spriteIndex);
             // moves the obstacle horizontally to the left by 5 units.
-            Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme));
+            Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) - 5);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -275,33 +312,6 @@ namespace SAE_1._01_1._02
             
         }
 
-        /*
-        private void Collide(string Dir)
-        {
-            foreach (var x in mainCanvas.Children.OfType<Rectangle>())
-            {
-                if((string)x.Tag == "Collide")
-                {
-                    joueurHitBox = new Rect(Canvas.GetLeft(joueur), Canvas.GetTop(joueur), joueur.Width, joueur.Height);
-                    Rect ToCollide = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-                    if(joueurHitBox.IntersectsWith(ToCollide))
-                    {
-                        if(Dir == "x")
-                        {
-                            Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - speed);
-                            speed = 0;
-                        }
-                        else
-                        {
-                            Canvas.SetTop(joueur, Canvas.GetTop(joueur) + speed);
-                            speed = 0;
-                        }
-                    }
-                }
-            }
-        }
-        */
         private void StartGame()
         {
             Canvas.SetLeft(background, 0);
@@ -315,10 +325,17 @@ namespace SAE_1._01_1._02
             Canvas.SetLeft(obstacle, 950);
             Canvas.SetTop(obstacle, 310);
 
+            Canvas.SetLeft(imgPlateforme, 300);
+            Canvas.SetTop(imgPlateforme, 250);
+
+
             RunSprite(1);
 
             obstacleSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/block.png"));
             obstacle.Fill = obstacleSprite;
+
+            plateformeSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/platforms.png"));
+            imgPlateforme.Fill = plateformeSprite;
 
             saut = false;
             gameOver = false;
@@ -363,7 +380,6 @@ namespace SAE_1._01_1._02
             }
 
             joueur.Fill = playerSprite;
-
 
         }
 
