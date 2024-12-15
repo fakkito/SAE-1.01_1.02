@@ -26,11 +26,12 @@ namespace SAE_1._01_1._02
         Rect solHitBox;
         Rect obstacleHitBox;
         Rect platformsHitBox;
+        Rect fromageHitBox;
 
         bool saut;
-        bool toucherSol;
+        bool toucherSol;  
 
-        int force = 20;
+        int force = 20; // Equal the gravity
         int speed = 50;
 
         Random rnd = new Random();
@@ -43,7 +44,9 @@ namespace SAE_1._01_1._02
         private static BitmapImage newRunner_01_Gauche;
         private static BitmapImage platforms;
 
+
         ImageBrush playerSprite = new ImageBrush();
+        ImageBrush playerSpriteGauche = new ImageBrush();
         ImageBrush backgroundSprite = new ImageBrush();
         ImageBrush obstacleSprite = new ImageBrush();
         ImageBrush plateformeSprite = new ImageBrush();
@@ -51,8 +54,8 @@ namespace SAE_1._01_1._02
         int[] obstaclePosition = { 320, 310, 300, 305, 315 }; // Positions à laquelle spawn aléatoirement les obstacles
         int[] imgPlateformePosition = { 260, 250, 240, 245, 255 }; // Positions à laquelle spawn aléatoirement les plateformes
 
-
         int score = 0;
+        int compteurFromages = 0;
 
 
         public MainWindow()
@@ -62,7 +65,7 @@ namespace SAE_1._01_1._02
             menu.ShowDialog();
 
             InitBitmaps();
-            mainCanvas.Focus();
+            mainCanvas.Focus(); // Permet de capturer immédiatement les événements clavier
 
             timerJeu.Tick += GameEngine;
             timerJeu.Interval = TimeSpan.FromMilliseconds(20);
@@ -87,6 +90,7 @@ namespace SAE_1._01_1._02
 
         private void GameEngine(object? sender, EventArgs e)
         {
+
             // When launching the game, the player goes down to hit the ground
             Canvas.SetTop(joueur, Canvas.GetTop(joueur) + speed);
 
@@ -100,6 +104,7 @@ namespace SAE_1._01_1._02
             obstacleHitBox = new Rect(Canvas.GetLeft(obstacle), Canvas.GetTop(obstacle), obstacle.Width, obstacle.Height);
             solHitBox = new Rect(Canvas.GetLeft(sol), Canvas.GetTop(sol), sol.Width, sol.Height);
             platformsHitBox = new Rect(Canvas.GetLeft(imgPlateforme), Canvas.GetTop(imgPlateforme), imgPlateforme.Width, imgPlateforme.Height);
+            fromageHitBox = new Rect(Canvas.GetLeft(fromage), Canvas.GetTop(fromage), fromage.Width, fromage.Height);
 
             // Actions when the player lands on the floor
             if (joueurHitBox.IntersectsWith(solHitBox))
@@ -180,13 +185,20 @@ namespace SAE_1._01_1._02
 
                 Canvas.SetTop(imgPlateforme, imgPlateformePosition[rnd.Next(0, imgPlateformePosition.Length)]);
 
-                score += 1;
             }
             if (joueurHitBox.IntersectsWith(obstacleHitBox))
             {
                 gameOver = true;
 
                 timerJeu.Stop();
+            }
+
+            if (joueurHitBox.IntersectsWith(fromageHitBox))
+            {
+                Canvas.SetLeft(fromage, 950);
+                Canvas.SetTop(fromage, 200);
+                compteurFromages += 1;
+                compteurFromage.Content = compteurFromages;
             }
 
             if (gameOver == true)
@@ -216,7 +228,7 @@ namespace SAE_1._01_1._02
             }
             RunSprite(spriteIndex);
             // moves the obstacle horizontally to the left by 5 units.
-            Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) - 5);
+            Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme));
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -230,9 +242,18 @@ namespace SAE_1._01_1._02
             if (e.Key == Key.Right && gameOver == false)
             {
                 imgNewRunner01_Droite.Source = newRunner_01_Droite;
-                Canvas.SetLeft(imgNewRunner01_Droite, Canvas.GetLeft(imgNewRunner01_Droite) + 10);
-                if (Canvas.GetLeft(imgNewRunner01_Droite) > this.ActualWidth - imgNewRunner01_Droite.Width)
-                    Canvas.SetLeft(imgNewRunner01_Droite, this.ActualWidth - imgNewRunner01_Droite.Width);
+                Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + VITESSE_JOUEUR);
+
+                Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) - VITESSE_JOUEUR);
+                Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) - VITESSE_JOUEUR);
+
+
+
+
+
+                // Prevent player from moving off the left side of the screen
+                if (Canvas.GetLeft(joueur) > this.ActualWidth - joueur.Width)
+                    Canvas.SetLeft(joueur, this.ActualWidth - joueur.Width);
 
 
                 // FOR THE BACKGROUND TO MOVE 
@@ -241,9 +262,7 @@ namespace SAE_1._01_1._02
                 Canvas.SetLeft(background2, Canvas.GetLeft(background2) - VITESSE_JOUEUR); // Vitesse 
                 Canvas.SetLeft(background3, Canvas.GetLeft(background3) - VITESSE_JOUEUR); // Vitesse 
 
-
                 // Loop the backgrounds when it goes off-screen
-
                 if (Canvas.GetLeft(background) < -background.ActualWidth)
                 {
                     Canvas.SetLeft(background, 0);
@@ -257,14 +276,24 @@ namespace SAE_1._01_1._02
             // Pour faire défiler les fonds quand on va à gauche
             if (e.Key == Key.Left && gameOver == false)
             {
+                RunSpriteGauche(1);
                 joueur.Fill = new ImageBrush(newRunner_01_Gauche); // When i press Left, the image is "newRunner_01_Gauche.gif"
                 imgNewRunner01_Droite.Source = newRunner_01_Gauche;
-                Canvas.SetLeft(imgNewRunner01_Droite, Canvas.GetLeft(imgNewRunner01_Droite) - 10);
-                if (Canvas.GetLeft(imgNewRunner01_Droite) < 0)
-                    Canvas.SetLeft(imgNewRunner01_Droite, 0);
+
+                // Move the actual player character
+                Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - VITESSE_JOUEUR);
+
+                // Move the actual plateforme at the same speed as the player but inversely
+                Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) + VITESSE_JOUEUR);
+
+                // Move the actual fromage at the same speed as the player but inversely
+                Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) + VITESSE_JOUEUR);
+
+                // Prevent player from moving off the left side of the screen
+                if (Canvas.GetLeft(joueur) < 0)
+                    Canvas.SetLeft(joueur, 0);
 
                 // FOR THE BACKGROUND TO MOVE 
-
                 Canvas.SetLeft(background, Canvas.GetLeft(background) + VITESSE_JOUEUR); // Vitesse
                 Canvas.SetLeft(background3, Canvas.GetLeft(background3) + VITESSE_JOUEUR); // Vitesse
                 Canvas.SetLeft(background2, Canvas.GetLeft(background2) + VITESSE_JOUEUR); // Vitesse
@@ -278,6 +307,8 @@ namespace SAE_1._01_1._02
                     Canvas.SetLeft(background2, background.ActualWidth);
                     Canvas.SetLeft(background3, -background.ActualWidth);
                 }
+
+
 
             }
             // When Escape is press, the timer (timerJeu) stops.
@@ -297,7 +328,7 @@ namespace SAE_1._01_1._02
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
 
-            // if the space key is pressed AND jumping boolean is true AND player y location is above 260 pixels
+            // if the space key is pressed AND jumping boolean is false AND playerHitBox touch the obstacleHitBox
             if (e.Key == Key.Space && !saut && !joueurHitBox.IntersectsWith(obstacleHitBox))
             {
               saut = true;     
@@ -314,20 +345,26 @@ namespace SAE_1._01_1._02
 
         private void StartGame()
         {
+            // Positions where are set the backgrounds
             Canvas.SetLeft(background, 0);
             Canvas.SetLeft(background2, 1262);
             Canvas.SetLeft(background3, -1262);
 
             // Set the player on the ground when starting
-            Canvas.SetLeft(joueur, 46);
+            Canvas.SetLeft(joueur, 46); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(fromage) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
             Canvas.SetTop(joueur, 270);
 
-            Canvas.SetLeft(obstacle, 950);
+            // Set the obstacle
+            Canvas.SetLeft(obstacle, 950); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(fromage) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
             Canvas.SetTop(obstacle, 310);
 
-            Canvas.SetLeft(imgPlateforme, 300);
+            // Set the plateforme 
+            Canvas.SetLeft(imgPlateforme, 300); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(fromage) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
             Canvas.SetTop(imgPlateforme, 250);
 
+            // Set the fromage 
+            Canvas.SetLeft(fromage, 200); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(fromage) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
+            Canvas.SetTop(fromage,  200);
 
             RunSprite(1);
 
@@ -347,6 +384,7 @@ namespace SAE_1._01_1._02
 
         }
 
+        
         private void RunSprite(double i)
         {
 
@@ -380,6 +418,41 @@ namespace SAE_1._01_1._02
             }
 
             joueur.Fill = playerSprite;
+
+        }
+        private void RunSpriteGauche(double i)
+        {
+
+            // DIFFERENTS CASE TO MAKE THE PLAYER SPRINT SMOOTHLY            
+            switch (i)
+            {
+                case 1:
+                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_01_Gauche.gif"));
+                    break;
+                case 2:
+                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_02_Gauche.gif"));
+                    break;
+                case 3:
+                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_03_Gauche.gif"));
+                    break;
+                case 4:
+                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_04_Gauche.gif"));
+                    break;
+                case 5:
+                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_05_Gauche.gif"));
+                    break;
+                case 6:
+                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_06_Gauche.gif"));
+                    break;
+                case 7:
+                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_07_Gauche.gif"));
+                    break;
+                case 8:
+                    playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/newRunner_08_Gauche.gif"));
+                    break;
+            }
+
+            joueur.Fill = playerSpriteGauche;
 
         }
 

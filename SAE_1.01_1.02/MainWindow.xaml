@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SAE_1._01_1._02"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" WindowStyle="ThreeDBorderWindow">
     <Window.Background>
         <ImageBrush ImageSource="/img/fond_ecran_automne.jpg"/>
     </Window.Background>
@@ -16,9 +16,6 @@
         Focusable="True"
         KeyDown="Window_KeyDown"
         KeyUp="Window_KeyUp">
-
-
-
         <Canvas.Background>
             <ImageBrush x:Name="imageFond" ImageSource="/img/fond_ecran_automne.jpg" />
         </Canvas.Background>
@@ -35,7 +32,6 @@
                 <ImageBrush/>
             </Image.OpacityMask>
         </Image>
-
         <Rectangle
             Name="background"
             Canvas.Left="0"
@@ -61,7 +57,7 @@
             Width="800"
             Height="32"
             Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Top" />
-        <Rectangle
+        <Rectangle 
             Name="joueur"
             Tag="User"
             Canvas.Left="46"
@@ -86,9 +82,14 @@
         </Rectangle>
         <Label
             Name="scoreText"
-            Content="Score: 0"
+            Content="Temps : "
             FontSize="22"
             FontWeight="Bold" />
+        <Label
+            Name="compteurFromage"
+            Content="0"
+            FontSize="22"
+            FontWeight="Bold" HorizontalAlignment="Left" Canvas.Left="293" VerticalAlignment="Center" />
         <Rectangle
             Name="background3"
             Canvas.Left="-1262"
@@ -104,11 +105,22 @@
              Canvas.Left="400"
              Width="120"
              Height="30" 
-             Canvas.Top="270" HorizontalAlignment="Center" VerticalAlignment="Top">
+             Canvas.Top="270" >
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/platforms.png" />
             </Rectangle.Fill>
         </Rectangle>
-
+        <Rectangle
+            x:Name="fromage"
+            Tag="elementFromage"
+            Canvas.Left="400"
+            Canvas.Top="187"
+            Width="25"
+            Height="25">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/fromage.png" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Image Height="25" Canvas.Left="263" Source="/img/fromage.png" Stretch="Fill" Canvas.Top="10" Width="25" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Canvas>
 </Window>
