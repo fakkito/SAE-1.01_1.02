@@ -81,15 +81,23 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label
-            Name="scoreText"
+            Name="tempsText"
             Content="Temps : "
             FontSize="22"
+            Foreground="#FF00E2FF"
             FontWeight="Bold" />
         <Label
             Name="compteurFromage"
             Content="0"
             FontSize="22"
-            FontWeight="Bold" HorizontalAlignment="Left" Canvas.Left="293" VerticalAlignment="Center" />
+            Foreground="#FFEFBC08"
+            FontWeight="Bold" HorizontalAlignment="Left" Canvas.Left="293" VerticalAlignment="Center" Canvas.Top="0" Width="39" />
+        <Label
+            Name="compteurCharcuterie"
+            Content="0"
+            FontSize="22"
+            Foreground="#FFCC2207"
+            FontWeight="Bold" HorizontalAlignment="Left" Canvas.Left="461" VerticalAlignment="Center" Width="38" />
         <Rectangle
             Name="background3"
             Canvas.Left="-1262"
@@ -121,6 +129,18 @@
                 <ImageBrush ImageSource="/img/fromage.png" />
             </Rectangle.Fill>
         </Rectangle>
-        <Image Height="25" Canvas.Left="263" Source="/img/fromage.png" Stretch="Fill" Canvas.Top="10" Width="25" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle
+            x:Name="charcuterie"
+            Tag="elementCharcuterie"
+            Canvas.Left="460"
+            Canvas.Top="188"
+            Width="25"
+            Height="25">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/charcuterie.png" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Image Height="36" Canvas.Left="258" Source="/img/fromage.png" Stretch="Fill" Canvas.Top="5" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Image Height="36" Canvas.Left="422" Source="/img/charcuterie.png" Stretch="Fill" Canvas.Top="5" Width="34" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Canvas>
 </Window>

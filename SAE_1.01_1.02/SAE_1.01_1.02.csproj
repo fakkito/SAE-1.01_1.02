@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="charcuterie.png" />
     <None Remove="img prof\newRunner_01.gif" />
     <None Remove="img prof\newRunner_02.gif" />
     <None Remove="img prof\newRunner_03.gif" />
@@ -21,6 +22,7 @@
     <None Remove="img prof\obstacle.png" />
     <None Remove="img2\FondFromage.jpg.png" />
     <None Remove="img\block.png" />
+    <None Remove="img\charcuterie.png" />
     <None Remove="img\fond_ecran_automne.jpg" />
     <None Remove="img\fond_ecran_autoroute.jpg" />
     <None Remove="img\fond_ecran_hiver.jpg" />
@@ -42,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="charcuterie.png" />
     <Resource Include="img prof\newRunner_01.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -73,6 +76,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\block.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\charcuterie.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\fond_ecran_automne.jpg">
