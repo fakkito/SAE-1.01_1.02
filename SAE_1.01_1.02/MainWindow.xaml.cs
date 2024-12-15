@@ -239,17 +239,21 @@ namespace SAE_1._01_1._02
                 imgPlateforme.Stroke = Brushes.Blue;
                 imgPlateforme.StrokeThickness = 1;
 
+                // Visibilité de la HitBox du joueur
                 joueur.Stroke = Brushes.Red;
                 joueur.StrokeThickness = 1;
 
+                // On remet les compteurs à 0
                 tempsText.Content = "Temps : " + temps + " \nPress Enter to play again !";
                 compteurFromage.Content = compteurFromages;
                 compteurCharcuterie.Content = compteurCharcuteries;
             }
             else
             {
-                // Visibilité de la HitBox de l'obstacle
+                // Visibilité de la HitBox du joueur
                 joueur.StrokeThickness = 0;
+
+                // Visibilité de la HitBox de l'obstacle
                 obstacle.StrokeThickness = 0;
 
                 // Visibilité de la HitBox de la plateforme
@@ -266,10 +270,12 @@ namespace SAE_1._01_1._02
                 StartGame();
             }
 
+            // Si le jeu est en pause, on peut le reprendre en appuyant sur la touche Echap
             if (isPaused)
             {
                 if (e.Key == Key.Escape)
                 {
+                    // On remet le jeu en route
                     isPaused = false;
                     timerJeu.Start();
                 }
@@ -284,7 +290,7 @@ namespace SAE_1._01_1._02
             }
                 #if DEBUG
                 Console.WriteLine(e.Key);    // Affichage dans la console de la "Key pressed"
-#endif
+                #endif
 
             if (!gameOver && !isPaused)
             {
