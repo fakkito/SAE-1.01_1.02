@@ -21,6 +21,8 @@ namespace SAE_1._01_1._02
         static readonly double VITESSE_JOUEUR = 3;
         static readonly double VITESSE_ENNEMI = 5;
 
+        ///Deplacements 
+        private bool goDroite, goGauche;
 
         DispatcherTimer timerJeu = new DispatcherTimer();
 
@@ -56,7 +58,6 @@ namespace SAE_1._01_1._02
         ImageBrush ennemiSprite = new ImageBrush();
         ImageBrush plateformeSprite = new ImageBrush();
 
-        int[] ennemiPosition = { 315 }; // Positions à laquelle spawn les ennemis en hauteur
         int[] imgPlateformePosition = { 260, 250, 240, 245, 255 }; // Positions à laquelle spawn aléatoirement les plateformes
 
         int tempsEcoule = 0;
@@ -127,6 +128,71 @@ namespace SAE_1._01_1._02
                     gameOver = true;
                     timerJeu.Stop();
                 }
+            }
+            if (goDroite)
+            {
+                // Mouvement vers la droite
+                Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + VITESSE_JOUEUR);
+                RunSprite(spriteIndex);
+                imgNewRunner01_Droite.Source = newRunner_01_Droite;
+
+                // Déplacements inverses des autres éléments
+                Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) - VITESSE_JOUEUR);
+                Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) - VITESSE_JOUEUR);
+                Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) - VITESSE_JOUEUR);
+                Canvas.SetLeft(patate, Canvas.GetLeft(patate) - VITESSE_JOUEUR);
+
+                // Gestion des arrière-plans
+                Canvas.SetLeft(background, Canvas.GetLeft(background) - VITESSE_JOUEUR);
+                Canvas.SetLeft(background2, Canvas.GetLeft(background2) - VITESSE_JOUEUR);
+                Canvas.SetLeft(background3, Canvas.GetLeft(background3) - VITESSE_JOUEUR);
+
+                // Logique de bouclage des arrière-plans
+                if (Canvas.GetLeft(background) < -background.ActualWidth)
+                {
+                    Canvas.SetLeft(background, 0);
+                    Canvas.SetLeft(background2, background.ActualWidth);
+                    Canvas.SetLeft(background3, -background.ActualWidth);
+                }
+            }
+            if (goGauche)
+            {
+                RunSpriteGauche(spriteIndex);
+                imgNewRunner01_Droite.Source = newRunner_01_Gauche;
+
+                // Move the actual player character
+                Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - VITESSE_JOUEUR);
+
+                // Move the actual plateforme at the same speed as the player but inversely
+                Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) + VITESSE_JOUEUR);
+
+                // Move the actual fromage at the same speed as the player but inversely
+                Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) + VITESSE_JOUEUR);
+
+                // Move the actual charcuterie at the same speed as the player but inversely
+                Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) + VITESSE_JOUEUR);
+
+                // Move the actual patate at the same speed as the player but inversely
+                Canvas.SetLeft(patate, Canvas.GetLeft(patate) + VITESSE_JOUEUR);
+
+                // Prevent player from moving off the left side of the screen
+                if (Canvas.GetLeft(joueur) < 0)
+                    Canvas.SetLeft(joueur, 0);
+
+                // FOR THE BACKGROUND TO MOVE 
+                Canvas.SetLeft(background, Canvas.GetLeft(background) + VITESSE_JOUEUR); // Vitesse
+                Canvas.SetLeft(background3, Canvas.GetLeft(background3) + VITESSE_JOUEUR); // Vitesse
+                Canvas.SetLeft(background2, Canvas.GetLeft(background2) + VITESSE_JOUEUR); // Vitesse
+
+
+                // Loop the backgrounds when it goes off-screen
+
+                if (Canvas.GetLeft(background3) > 0)
+                {
+                    Canvas.SetLeft(background, 0);
+                    Canvas.SetLeft(background2, background.ActualWidth);
+                    Canvas.SetLeft(background3, -background.ActualWidth);
+                } 
             }
 
             // When launching the game, the player goes down to hit the ground
@@ -326,9 +392,17 @@ namespace SAE_1._01_1._02
                 #if DEBUG
                 Console.WriteLine(e.Key);    // Affichage dans la console de la "Key pressed"
                 #endif
-
+            if (e.Key == Key.Right)
+            {
+                goDroite = true;
+            }
+            if (e.Key == Key.Left)
+            {
+                goGauche = true;
+            }
             if (!gameOver && !isPaused)
             {
+                
                 // Pour faire défiler les éléments quand on va à droite
                 if (e.Key == Key.Right && gameOver == false)
                 {
@@ -425,6 +499,15 @@ namespace SAE_1._01_1._02
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Right)
+            {
+                goDroite = false;
+            }
+            if (e.Key == Key.Left)
+            {
+                goGauche = false;
+            }
+            
             // if the space key is pressed AND jumping boolean is false AND playerHitBox touch the ennemieHitBox
             if (e.Key == Key.Space && !saut && !joueurHitBox.IntersectsWith(ennemiHitBox))
             {
