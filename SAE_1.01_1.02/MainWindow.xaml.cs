@@ -91,9 +91,11 @@ namespace SAE_1._01_1._02
             // Dans le constructeur, initialisez la position de départ
             dernierePositionX = Canvas.GetLeft(joueur);
 
-            StartGame();
 
             InitMusique();
+
+            StartGame();
+
             
 
         }
