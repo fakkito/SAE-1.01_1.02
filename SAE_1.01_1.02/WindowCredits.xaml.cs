@@ -26,9 +26,9 @@ namespace SAE_1._01_1._02
 
         private void retourCredit_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainJeu = new MainWindow();
-            mainJeu.Show();
+            WindowMenu menu = new WindowMenu();
             this.Close();
+            menu.ShowDialog();
         }
     }
 }

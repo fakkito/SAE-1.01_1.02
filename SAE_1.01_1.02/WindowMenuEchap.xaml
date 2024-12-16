@@ -1,0 +1,19 @@
+﻿<Window x:Class="SAE_1._01_1._02.WindowMenuEchap"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SAE_1._01_1._02"
+        mc:Ignorable="d"
+        Title="WindowMenuEchap" Height="300" Width="300">
+    <Grid>
+        <StackPanel x:Name="contenantBouttonEchap" VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" Height="169">
+            <Button Content="Reprendre" Click="ReprendreButton_Click" Width="200" Height="60" Margin="5" FontSize="28" Foreground="Black"  Background="Gold" BorderBrush="Brown" />
+            <Button Content="Quitter" Click="Quitter_Click" Width="200" Height="60" Margin="5" Background="Gold" BorderBrush="Brown" FontSize="28" Foreground="Black"/>
+        </StackPanel>
+        <Grid.Background>
+            <ImageBrush ImageSource="/img2/FondFromage.jpg.png" />
+        </Grid.Background>
+
+    </Grid>
+</Window>
