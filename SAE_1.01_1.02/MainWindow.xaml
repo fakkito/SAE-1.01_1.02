@@ -97,25 +97,45 @@
             Foreground="#FF00E2FF" />
         <Label
             Name="compteurFromage"
-            Canvas.Left="293"
-            Canvas.Top="0"
+            Canvas.Left="752"
+            Canvas.Top="134"
             Width="39"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             Content="0"
             FontSize="22"
             FontWeight="Bold"
             Foreground="#FFEFBC08" />
         <Label
             Name="compteurCharcuterie"
-            Canvas.Left="461"
+            Canvas.Left="752"
             Width="38"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="0"
+            FontSize="22"
+            FontWeight="Bold"
+            Foreground="#FFCC2207" Canvas.Top="90" />
+        <Label
+            Name="compteurPatate"
+            Canvas.Left="752"
+            Width="38"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="0"
+            FontSize="22"
+            FontWeight="Bold"
+            Foreground="#FFCC9315" Canvas.Top="46" />
+        <Label 
+            Name="compteurDistance"
+            Canvas.Left="318"
+            Width="390"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="0"
             FontSize="22"
             FontWeight="Bold"
-            Foreground="#FFCC2207" />
+            Foreground="#FFF9F9F9" />
         <Rectangle
             Name="background3"
             Canvas.Left="-1262"
@@ -158,9 +178,20 @@
                 <ImageBrush ImageSource="/img/charcuterie.png" />
             </Rectangle.Fill>
         </Rectangle>
+        <Rectangle
+            x:Name="patate"
+            Canvas.Left="500"
+            Canvas.Top="188"
+            Width="25"
+            Height="25"
+            Tag="elementPatate">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/patate.png" />
+            </Rectangle.Fill>
+        </Rectangle>
         <Image
-            Canvas.Left="258"
-            Canvas.Top="5"
+            Canvas.Left="712"
+            Canvas.Top="137"
             Width="35"
             Height="36"
             HorizontalAlignment="Left"
@@ -168,13 +199,14 @@
             Source="/img/fromage.png"
             Stretch="Fill" />
         <Image
-            Canvas.Left="422"
-            Canvas.Top="5"
+            Canvas.Left="713"
+            Canvas.Top="92"
             Width="34"
             Height="36"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Source="/img/charcuterie.png"
             Stretch="Fill" />
+        <Image Height="30" Canvas.Left="717" Source="/img/patate.png" Stretch="Fill" Canvas.Top="51" Width="30"/>
     </Canvas>
 </Window>
