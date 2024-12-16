@@ -21,8 +21,15 @@
     <None Remove="img prof\newRunner_08.gif" />
     <None Remove="img prof\obstacle.png" />
     <None Remove="img2\FondFromage.jpg.png" />
-    <None Remove="img\block.png" />
     <None Remove="img\charcuterie.png" />
+    <None Remove="img\ennemi_1.png" />
+    <None Remove="img\ennemi_2.png" />
+    <None Remove="img\ennemi_3.png" />
+    <None Remove="img\ennemi_4.png" />
+    <None Remove="img\ennemi_5.png" />
+    <None Remove="img\ennemi_6.png" />
+    <None Remove="img\ennemi_7.png" />
+    <None Remove="img\ennemi_8.png" />
     <None Remove="img\fond_ecran_automne.jpg" />
     <None Remove="img\fond_ecran_autoroute.jpg" />
     <None Remove="img\fond_ecran_hiver.jpg" />
@@ -75,10 +82,31 @@
     <Resource Include="img2\FondFromage.jpg.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\block.png">
+    <Resource Include="img\charcuterie.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\charcuterie.png">
+    <Resource Include="img\ennemi_1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi_2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi_3.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi_4.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi_5.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi_6.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi_7.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi_8.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\fond_ecran_automne.jpg">

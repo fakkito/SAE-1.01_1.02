@@ -1,13 +1,17 @@
-﻿<Window x:Class="SAE_1._01_1._02.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SAE_1._01_1._02"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStyle="ThreeDBorderWindow">
+﻿<Window
+    x:Class="SAE_1._01_1._02.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SAE_1._01_1._02"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    WindowStyle="ThreeDBorderWindow"
+    mc:Ignorable="d">
     <Window.Background>
-        <ImageBrush ImageSource="/img/fond_ecran_automne.jpg"/>
+        <ImageBrush ImageSource="/img/fond_ecran_automne.jpg" />
     </Window.Background>
 
     <Canvas
@@ -27,9 +31,9 @@
             Width="108"
             Height="122"
             Source="/newRunner_01_gauche.gif"
-            Stretch="Fill" >
+            Stretch="Fill">
             <Image.OpacityMask>
-                <ImageBrush/>
+                <ImageBrush />
             </Image.OpacityMask>
         </Image>
         <Rectangle
@@ -56,48 +60,62 @@
             Canvas.Top="368"
             Width="800"
             Height="32"
-            Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Top" />
-        <Rectangle 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Fill="Black" />
+        <Rectangle
             Name="joueur"
-            Tag="User"
             Canvas.Left="46"
             Canvas.Top="270"
             Width="67"
             Height="99"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            Tag="User">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img prof/newRunner_01.gif" />
             </Rectangle.Fill>
         </Rectangle>
         <Rectangle
-            Name="obstacle"
-            Canvas.Left="631"
-            Canvas.Top="418"
-            Width="50"
-            Height="178">
+            Name="ennemi"
+            Canvas.Left="573"
+            Canvas.Top="320"
+            Width="40"
+            Height="49"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.188,1.225">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="/img/block.png" />
+                <ImageBrush ImageSource="/img/ennemi_1.png" />
             </Rectangle.Fill>
         </Rectangle>
         <Label
             Name="tempsText"
             Content="Temps : "
             FontSize="22"
-            Foreground="#FF00E2FF"
-            FontWeight="Bold" />
+            FontWeight="Bold"
+            Foreground="#FF00E2FF" />
         <Label
             Name="compteurFromage"
+            Canvas.Left="293"
+            Canvas.Top="0"
+            Width="39"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
             Content="0"
             FontSize="22"
-            Foreground="#FFEFBC08"
-            FontWeight="Bold" HorizontalAlignment="Left" Canvas.Left="293" VerticalAlignment="Center" Canvas.Top="0" Width="39" />
+            FontWeight="Bold"
+            Foreground="#FFEFBC08" />
         <Label
             Name="compteurCharcuterie"
+            Canvas.Left="461"
+            Width="38"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
             Content="0"
             FontSize="22"
-            Foreground="#FFCC2207"
-            FontWeight="Bold" HorizontalAlignment="Left" Canvas.Left="461" VerticalAlignment="Center" Width="38" />
+            FontWeight="Bold"
+            Foreground="#FFCC2207" />
         <Rectangle
             Name="background3"
             Canvas.Left="-1262"
@@ -108,39 +126,55 @@
             </Rectangle.Fill>
         </Rectangle>
         <Rectangle
-             Name="imgPlateforme"
-             Tag="Collide"
-             Canvas.Left="400"
-             Width="120"
-             Height="30" 
-             Canvas.Top="270" >
+            Name="imgPlateforme"
+            Canvas.Left="400"
+            Canvas.Top="270"
+            Width="120"
+            Height="30"
+            Tag="Collide">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/platforms.png" />
             </Rectangle.Fill>
         </Rectangle>
         <Rectangle
             x:Name="fromage"
-            Tag="elementFromage"
             Canvas.Left="400"
             Canvas.Top="187"
             Width="25"
-            Height="25">
+            Height="25"
+            Tag="elementFromage">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/fromage.png" />
             </Rectangle.Fill>
         </Rectangle>
         <Rectangle
             x:Name="charcuterie"
-            Tag="elementCharcuterie"
             Canvas.Left="460"
             Canvas.Top="188"
             Width="25"
-            Height="25">
+            Height="25"
+            Tag="elementCharcuterie">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/charcuterie.png" />
             </Rectangle.Fill>
         </Rectangle>
-        <Image Height="36" Canvas.Left="258" Source="/img/fromage.png" Stretch="Fill" Canvas.Top="5" Width="35" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Image Height="36" Canvas.Left="422" Source="/img/charcuterie.png" Stretch="Fill" Canvas.Top="5" Width="34" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Image
+            Canvas.Left="258"
+            Canvas.Top="5"
+            Width="35"
+            Height="36"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Source="/img/fromage.png"
+            Stretch="Fill" />
+        <Image
+            Canvas.Left="422"
+            Canvas.Top="5"
+            Width="34"
+            Height="36"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Source="/img/charcuterie.png"
+            Stretch="Fill" />
     </Canvas>
 </Window>

@@ -22,9 +22,10 @@ namespace SAE_1._01_1._02
 
         DispatcherTimer timerJeu = new DispatcherTimer();
 
+        // HitBoxs
         Rect joueurHitBox;
         Rect solHitBox;
-        Rect obstacleHitBox;
+        Rect ennemiHitBox;
         Rect platformsHitBox;
         Rect fromageHitBox;
         Rect charcuterieHitBox;
@@ -32,7 +33,7 @@ namespace SAE_1._01_1._02
         bool saut;
 
         int force = 20; // Equal the gravity
-        int speed = 50;
+        int speed = 50; // Force qui est opposé à la gravité
 
         Random rnd = new Random();
 
@@ -43,16 +44,16 @@ namespace SAE_1._01_1._02
 
         private static BitmapImage newRunner_01_Droite;
         private static BitmapImage newRunner_01_Gauche;
-        private static BitmapImage platforms;
 
+        // private static BitmapImage platforms;
 
         ImageBrush playerSprite = new ImageBrush();
         ImageBrush playerSpriteGauche = new ImageBrush();
         ImageBrush backgroundSprite = new ImageBrush();
-        ImageBrush obstacleSprite = new ImageBrush();
+        ImageBrush ennemiSprite = new ImageBrush();
         ImageBrush plateformeSprite = new ImageBrush();
 
-        int[] obstaclePosition = { 320, 310, 300, 305, 315 }; // Positions à laquelle spawn aléatoirement les obstacles
+        int[] ennemiPosition = { 315 }; // Positions à laquelle spawn les ennemis en hauteur
         int[] imgPlateformePosition = { 260, 250, 240, 245, 255 }; // Positions à laquelle spawn aléatoirement les plateformes
 
         int tempsEcoule = 0;
@@ -114,14 +115,14 @@ namespace SAE_1._01_1._02
             // When launching the game, the player goes down to hit the ground
             Canvas.SetTop(joueur, Canvas.GetTop(joueur) + speed);
 
-            // moves the obstacle horizontally to the left by 5 units.
-            Canvas.SetLeft(obstacle, Canvas.GetLeft(obstacle) - 5);
+            // moves the ennemi horizontally to the left by 5 units.
+            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) - 5);
 
             tempsText.Content = "Temps : " + temps; 
 
             // Setup 3 Hitboxs
             joueurHitBox = new Rect(Canvas.GetLeft(joueur), Canvas.GetTop(joueur), joueur.Width - 15, joueur.Height);
-            obstacleHitBox = new Rect(Canvas.GetLeft(obstacle), Canvas.GetTop(obstacle), obstacle.Width, obstacle.Height);
+            ennemiHitBox = new Rect(Canvas.GetLeft(ennemi), Canvas.GetTop(ennemi),  ennemi.Width, ennemi.Height);
             solHitBox = new Rect(Canvas.GetLeft(sol), Canvas.GetTop(sol), sol.Width, sol.Height);
             platformsHitBox = new Rect(Canvas.GetLeft(imgPlateforme), Canvas.GetTop(imgPlateforme), imgPlateforme.Width, imgPlateforme.Height);
             fromageHitBox = new Rect(Canvas.GetLeft(fromage), Canvas.GetTop(fromage), fromage.Width, fromage.Height);
@@ -185,28 +186,29 @@ namespace SAE_1._01_1._02
                 saut = false;
             }
 
-            // Si l'obstacle est inférieur à -50 en X alors il est Re Set à 950 en X
-            if (Canvas.GetLeft(obstacle) < -50)
+            // Si l'ennemi est inférieur à -50 en X alors il est Re Set à 950 en X
+            if (Canvas.GetLeft(ennemi) < -50)
             {
-                Canvas.SetLeft(obstacle, 950);
+                Canvas.SetLeft(ennemi, 950);
 
-                // Find a position for obstacle in Y between the values in the table obstaclePosition[]
+                // Find a position for ennemi in Y between the values in the table oennemiPosition[]
                 // if 0 = 320, if 1 = 310 etc ...
 
-                Canvas.SetTop(obstacle, obstaclePosition[rnd.Next(0, obstaclePosition.Length)]);
+                Canvas.SetTop(ennemi, ennemiPosition[rnd.Next(0, ennemiPosition.Length)]);
 
             }
             if (Canvas.GetLeft(imgPlateforme) < -50)
             {
+                // Set the plateforme at 950 in X
                 Canvas.SetLeft(imgPlateforme, 950);
 
-                // Find a position for obstacle in Y between the values in the table obstaclePosition[]
+                // Find a position for platefrome in Y between the values in the table ennemiPosition[]
                 // if 0 = 320, if 1 = 310 etc ...
 
                 Canvas.SetTop(imgPlateforme, imgPlateformePosition[rnd.Next(0, imgPlateformePosition.Length)]);
 
             }
-            if (joueurHitBox.IntersectsWith(obstacleHitBox))
+            if (joueurHitBox.IntersectsWith(ennemiHitBox))
             {
                 gameOver = true;
 
@@ -215,6 +217,7 @@ namespace SAE_1._01_1._02
 
             if (joueurHitBox.IntersectsWith(fromageHitBox))
             {
+                // On remet le fromage à sa position initiale
                 Canvas.SetLeft(fromage, 950);
                 Canvas.SetTop(fromage, 200);
                 compteurFromages += 1;
@@ -223,6 +226,7 @@ namespace SAE_1._01_1._02
 
             if (joueurHitBox.IntersectsWith(charcuterieHitBox))
             {
+                // On remet la charcuterie à sa position initiale
                 Canvas.SetLeft(charcuterie, 1150);
                 Canvas.SetTop(charcuterie, 200);
                 compteurCharcuteries += 1;
@@ -231,9 +235,9 @@ namespace SAE_1._01_1._02
 
             if (gameOver == true)
             {
-                // Visibilité de la HitBox de l'obstacle
-                obstacle.Stroke = Brushes.Black;
-                obstacle.StrokeThickness = 1;
+                // Visibilité de la HitBox de l'ennemi
+                ennemi.Stroke = Brushes.Black;
+                ennemi.StrokeThickness = 1;
 
                 // Visibilité de la HitBox de la plateforme
                 imgPlateforme.Stroke = Brushes.Blue;
@@ -244,6 +248,8 @@ namespace SAE_1._01_1._02
                 joueur.StrokeThickness = 1;
 
                 // On remet les compteurs à 0
+                compteurFromages = 0;
+                compteurCharcuteries = 0;
                 tempsText.Content = "Temps : " + temps + " \nPress Enter to play again !";
                 compteurFromage.Content = compteurFromages;
                 compteurCharcuterie.Content = compteurCharcuteries;
@@ -253,18 +259,19 @@ namespace SAE_1._01_1._02
                 // Visibilité de la HitBox du joueur
                 joueur.StrokeThickness = 0;
 
-                // Visibilité de la HitBox de l'obstacle
-                obstacle.StrokeThickness = 0;
+                // Visibilité de la HitBox de l'ennemi
+                ennemi.StrokeThickness = 0;
 
                 // Visibilité de la HitBox de la plateforme
                 imgPlateforme.StrokeThickness = 0;
 
             }
-            RunSprite(spriteIndex);
+            RunSpriteEnnemi(spriteIndex);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+
             if (e.Key == Key.Enter && gameOver == true)
             {
                 StartGame();
@@ -297,6 +304,7 @@ namespace SAE_1._01_1._02
                 // Pour faire défiler les éléments quand on va à droite
                 if (e.Key == Key.Right && gameOver == false)
                 {
+                    RunSprite(spriteIndex);
                     imgNewRunner01_Droite.Source = newRunner_01_Droite;
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + VITESSE_JOUEUR);
 
@@ -332,7 +340,7 @@ namespace SAE_1._01_1._02
                 // Pour faire défiler les éléments quand on va à gauche
                 if (e.Key == Key.Left && gameOver == false)
                 {
-                    RunSpriteGauche(1);
+                    RunSpriteGauche(spriteIndex);
                     joueur.Fill = new ImageBrush(newRunner_01_Gauche); // When i press Left, the image is "newRunner_01_Gauche.gif"
                     imgNewRunner01_Droite.Source = newRunner_01_Gauche;
 
@@ -373,9 +381,8 @@ namespace SAE_1._01_1._02
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-
-            // if the space key is pressed AND jumping boolean is false AND playerHitBox touch the obstacleHitBox
-            if (e.Key == Key.Space && !saut && !joueurHitBox.IntersectsWith(obstacleHitBox))
+            // if the space key is pressed AND jumping boolean is false AND playerHitBox touch the ennemieHitBox
+            if (e.Key == Key.Space && !saut && !joueurHitBox.IntersectsWith(ennemiHitBox))
             {
               saut = true;     
               force = 15;
@@ -401,9 +408,9 @@ namespace SAE_1._01_1._02
             Canvas.SetLeft(joueur, 46); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(joueur) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
             Canvas.SetTop(joueur, 270);
 
-            // Set the obstacle
-            Canvas.SetLeft(obstacle, 950); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(obstacle) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
-            Canvas.SetTop(obstacle, 310);
+            // Set the ennemi
+            Canvas.SetLeft(ennemi, 950); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(ennemi) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
+            Canvas.SetTop(ennemi, 310);
 
             // Set the plateforme 
             Canvas.SetLeft(imgPlateforme, 300); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(imgPlateforme) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
@@ -418,8 +425,8 @@ namespace SAE_1._01_1._02
             Canvas.SetTop(charcuterie, 200);
             RunSprite(1);
 
-            obstacleSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/block.png"));
-            obstacle.Fill = obstacleSprite;
+            ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_1.png"));
+            ennemi.Fill = ennemiSprite;
 
             plateformeSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/platforms.png"));
             imgPlateforme.Fill = plateformeSprite;
@@ -503,6 +510,41 @@ namespace SAE_1._01_1._02
             }
 
             joueur.Fill = playerSpriteGauche;
+
+        }
+        private void RunSpriteEnnemi(double i)
+        {
+
+            // DIFFERENTS CASE TO MAKE THE PLAYER SPRINT SMOOTHLY            
+            switch (i)
+            {
+                case 1:
+                    ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_1.png"));
+                    break;
+                case 2:
+                    ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_2.png"));
+                    break;
+                case 3:
+                    ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_3.png"));
+                    break;
+                case 4:
+                    ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_4.png"));
+                    break;
+                case 5:
+                    ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_5.png"));
+                    break;
+                case 6:
+                    ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_6.png"));
+                    break;
+                case 7:
+                    ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_7.png"));
+                    break;
+                case 8:
+                    ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_8.png"));
+                    break;
+            }
+
+            ennemi.Fill = ennemiSprite;
 
         }
     }
