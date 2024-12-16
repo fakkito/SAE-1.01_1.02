@@ -287,7 +287,7 @@ namespace SAE_1._01_1._02
             // Si le jeu est en pause, on peut le reprendre en appuyant sur la touche Echap
             if (isPaused)
             {
-                if (e.Key == Key.Space)
+                if (e.Key == Key.Right)
                 {
                     // On remet le jeu en route
                     isPaused = false;
