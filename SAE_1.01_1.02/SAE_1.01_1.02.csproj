@@ -45,6 +45,7 @@
     <None Remove="img\newRunner_06_gauche.gif" />
     <None Remove="img\newRunner_07_gauche.gif" />
     <None Remove="img\newRunner_08_gauche.gif" />
+    <None Remove="img\patate.png" />
     <None Remove="img\platforms.png" />
     <None Remove="newRunner_01.gif" />
     <None Remove="newRunner_01_gauche.gif" />
@@ -156,6 +157,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\newRunner_08_gauche.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\patate.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\platforms.png">
