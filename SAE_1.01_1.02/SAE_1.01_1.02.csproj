@@ -49,6 +49,10 @@
     <None Remove="img\platforms.png" />
     <None Remove="newRunner_01.gif" />
     <None Remove="newRunner_01_gauche.gif" />
+    <None Remove="sons\ambiance-happy-170215.mp3" />
+    <None Remove="sons\fun-retro-game-175468.mp3" />
+    <None Remove="sons\musiquefond.mp3" />
+    <None Remove="sons\victory-is-here-215341.mp3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -163,6 +167,10 @@
     </Resource>
     <Resource Include="newRunner_01.gif" />
     <Resource Include="newRunner_01_gauche.gif" />
+    <Resource Include="sons\ambiance-happy-170215.mp3" />
+    <Resource Include="sons\musiquefond.mp3" />
+    <Resource Include="sons\fun-retro-game-175468.mp3" />
+    <Resource Include="sons\victory-is-here-215341.mp3" />
   </ItemGroup>
 
 </Project>

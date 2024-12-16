@@ -11,7 +11,7 @@
             <RowDefinition Height="107*" />
             <RowDefinition Height="327*" />
         </Grid.RowDefinitions>
-        <Grid />
+       
 
 
         <Border

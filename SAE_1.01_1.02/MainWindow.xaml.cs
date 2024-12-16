@@ -68,6 +68,8 @@ namespace SAE_1._01_1._02
         private double distanceParcourue = 0;
         private double dernierePositionX;
 
+        private static MediaPlayer musiqueJeu;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -90,6 +92,11 @@ namespace SAE_1._01_1._02
             dernierePositionX = Canvas.GetLeft(joueur);
 
             StartGame();
+
+            musiqueJeu = new MediaPlayer();
+            musiqueJeu.Open(new Uri("e:\\jeusae\\jeusae\\sons\\musiquefond.mp3"));
+            musiqueJeu.Play();
+
         }
 
         private void InitBitmaps()
@@ -301,7 +308,7 @@ namespace SAE_1._01_1._02
             // Si le jeu est en pause, on peut le reprendre en appuyant sur la touche Echap
             if (isPaused)
             {
-                if (e.Key == Key.Escape)
+                if (e.Key == Key.Space)
                 {
                     // On remet le jeu en route
                     isPaused = false;
@@ -589,6 +596,17 @@ namespace SAE_1._01_1._02
 
             ennemi.Fill = ennemiSprite;
 
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e) // pour acceder a la page en appuyant sur une touche
+        {
+
+            if (e.Key == Key.Escape)
+            {
+                // Ouvrir le menu
+                WindowMenuEchap windowMenuEchap = new WindowMenuEchap();
+                windowMenuEchap.ShowDialog();
+            }
         }
     }
 }
