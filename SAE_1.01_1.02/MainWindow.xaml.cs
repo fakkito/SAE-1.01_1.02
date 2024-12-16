@@ -92,11 +92,12 @@ namespace SAE_1._01_1._02
             // Dans le constructeur, initialisez la position de départ
             dernierePositionX = Canvas.GetLeft(joueur);
 
+
+            InitMusique();
+
             StartGame();
 
-            musiqueJeu = new MediaPlayer();
-            musiqueJeu.Open(new Uri("e:\\jeusae\\jeusae\\sons\\musiquefond.mp3"));
-            musiqueJeu.Play();
+            
 
         }
 
@@ -690,6 +691,21 @@ namespace SAE_1._01_1._02
                 WindowMenuEchap windowMenuEchap = new WindowMenuEchap();
                 windowMenuEchap.ShowDialog();
             }
+        }
+
+        private void InitMusique()
+        {
+            musiqueJeu = new MediaPlayer();
+            musiqueJeu.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/musiquefond.mp3"));
+            musiqueJeu.MediaEnded += RelanceMusique;
+            musiqueJeu.Volume = 0.5;
+            musiqueJeu.Play();
+        }
+
+        private void RelanceMusique(object? sender, EventArgs e)
+        {
+            musiqueJeu.Position = TimeSpan.Zero;
+            musiqueJeu.Play();
         }
     }
 }
