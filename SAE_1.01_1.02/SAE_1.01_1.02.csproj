@@ -47,6 +47,7 @@
     <None Remove="img\newRunner_08_gauche.gif" />
     <None Remove="img\patate.png" />
     <None Remove="img\platforms.png" />
+    <None Remove="Mechant.png-removebg-preview.png" />
     <None Remove="newRunner_01.gif" />
     <None Remove="newRunner_01_gauche.gif" />
     <None Remove="sons\ambiance-happy-170215.mp3" />
@@ -162,6 +163,9 @@
     </Resource>
     <Resource Include="img\platforms.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Mechant.png-removebg-preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="newRunner_01.gif" />
     <Resource Include="newRunner_01_gauche.gif" />

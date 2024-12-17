@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Diagnostics.Eventing.Reader;
+using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,13 +13,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+
 namespace SAE_1._01_1._02
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
         static readonly double VITESSE_JOUEUR = 3;
         static readonly double VITESSE_ENNEMI = 5;
 
@@ -77,6 +83,7 @@ namespace SAE_1._01_1._02
             WindowMenu menu = new WindowMenu();
             menu.ShowDialog();
 
+
             InitBitmaps();
             mainCanvas.Focus(); // Permet de capturer immédiatement les événements clavier
 
@@ -87,7 +94,7 @@ namespace SAE_1._01_1._02
 
             background.Fill = backgroundSprite;
             background2.Fill = backgroundSprite;
-            background3.Fill = backgroundSprite;
+            //background3.Fill = backgroundSprite;
 
             // Dans le constructeur, initialisez la position de départ
             dernierePositionX = Canvas.GetLeft(joueur);
@@ -96,8 +103,8 @@ namespace SAE_1._01_1._02
             InitMusique();
 
             StartGame();
+            //DeplacementEnnemi();
 
-            
 
         }
 
@@ -112,11 +119,11 @@ namespace SAE_1._01_1._02
 
         private void GameEngine(object? sender, EventArgs e)
         {
-            if (isPaused)
-            {
-                tempsText.Content = "GAME PAUSED\nPress Escape to Resume";
-                return;
-            }
+            //if (isPaused)
+            //{
+            //    tempsText.Content = "GAME PAUSED\nPress Escape to Resume";
+            //    return;
+            //}
             tempsEcoule++;
             // Décrémenter le temps toutes les 50 appels (environ toutes les secondes)
             if (tempsEcoule % 50 == 0)
@@ -146,54 +153,83 @@ namespace SAE_1._01_1._02
                 // Gestion des arrière-plans
                 Canvas.SetLeft(background, Canvas.GetLeft(background) - VITESSE_JOUEUR);
                 Canvas.SetLeft(background2, Canvas.GetLeft(background2) - VITESSE_JOUEUR);
-                Canvas.SetLeft(background3, Canvas.GetLeft(background3) - VITESSE_JOUEUR);
+                //Canvas.SetLeft(background3, Canvas.GetLeft(background3) - VITESSE_JOUEUR);
 
                 // Logique de bouclage des arrière-plans
-                if (Canvas.GetLeft(background) < -background.ActualWidth)
-                {
-                    Canvas.SetLeft(background, 0);
-                    Canvas.SetLeft(background2, background.ActualWidth);
-                    Canvas.SetLeft(background3, -background.ActualWidth);
-                }
+                //if (Canvas.GetLeft(background) < -background.ActualWidth)
+                //{
+                //    Canvas.SetLeft(background, 0);
+                //    Canvas.SetLeft(background2, background.ActualWidth);
+                //    //Canvas.SetLeft(background3, -background.ActualWidth);
+                //}
             }
             if (goGauche)
             {
-                RunSpriteGauche(spriteIndex);
-                imgNewRunner01_Droite.Source = newRunner_01_Gauche;
+                if (Canvas.GetLeft(joueur) > 46) // Limite à gauche
+                {
+                    RunSpriteGauche(spriteIndex);
+                    imgNewRunner01_Droite.Source = newRunner_01_Gauche;
+                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - VITESSE_JOUEUR);
 
-                // Move the actual player character
-                Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - VITESSE_JOUEUR);
+                    Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) + VITESSE_JOUEUR);
+                    Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) + VITESSE_JOUEUR);
+                    Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) + VITESSE_JOUEUR);
+                    Canvas.SetLeft(patate, Canvas.GetLeft(patate) + VITESSE_JOUEUR);
 
-                // Move the actual plateforme at the same speed as the player but inversely
-                Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) + VITESSE_JOUEUR);
+                    Canvas.SetLeft(background, Canvas.GetLeft(background) + VITESSE_JOUEUR);
+                    Canvas.SetLeft(background2, Canvas.GetLeft(background2) + VITESSE_JOUEUR);
+                    //Canvas.SetLeft(background3, Canvas.GetLeft(background3) + VITESSE_JOUEUR);
 
-                // Move the actual fromage at the same speed as the player but inversely
-                Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) + VITESSE_JOUEUR);
+                    //if (Canvas.GetLeft(background3) > 0)
+                    //{
+                    //    Canvas.SetLeft(background, 0);
+                    //    Canvas.SetLeft(background2, background.ActualWidth);
+                    //    Canvas.SetLeft(background3, -background.ActualWidth);
+                    //}
+                }
+                else
+                {
+                    Canvas.SetLeft(joueur, 0); // Empêche de dépasser la bordure gauche
+                }
+                //double positionActuelle = Canvas.GetLeft(joueur);
+                //double distanceDeplacement = positionActuelle - dernierePositionX;
+                //distanceParcourue -= Math.Abs(distanceDeplacement);
+                //dernierePositionX = positionActuelle;
+                //compteurDistance.Content = $"Distance: {Math.Round(distanceParcourue)} pixels";
 
-                // Move the actual charcuterie at the same speed as the player but inversely
-                Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) + VITESSE_JOUEUR);
+                // Diagnostic pour vérifier la position
+                Console.WriteLine($"Position Joueur: {Canvas.GetLeft(joueur)}");
 
-                // Move the actual patate at the same speed as the player but inversely
-                Canvas.SetLeft(patate, Canvas.GetLeft(patate) + VITESSE_JOUEUR);
+                //    RunSpriteGauche(spriteIndex);
+                //imgNewRunner01_Droite.Source = newRunner_01_Gauche;
 
-                // Prevent player from moving off the left side of the screen
-                if (Canvas.GetLeft(joueur) < 0)
-                    Canvas.SetLeft(joueur, 0);
+                //// Move the actual player character
+                //Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - VITESSE_JOUEUR);
 
-                // FOR THE BACKGROUND TO MOVE 
-                Canvas.SetLeft(background, Canvas.GetLeft(background) + VITESSE_JOUEUR); // Vitesse
-                Canvas.SetLeft(background3, Canvas.GetLeft(background3) + VITESSE_JOUEUR); // Vitesse
-                Canvas.SetLeft(background2, Canvas.GetLeft(background2) + VITESSE_JOUEUR); // Vitesse
+                //// Move the actual plateforme at the same speed as the player but inversely
+                //Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) + VITESSE_JOUEUR);
+
+                //// Move the actual fromage at the same speed as the player but inversely
+                //Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) + VITESSE_JOUEUR);
+
+                //// Move the actual charcuterie at the same speed as the player but inversely
+                //Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) + VITESSE_JOUEUR);
+
+                //// Move the actual patate at the same speed as the player but inversely
+                //Canvas.SetLeft(patate, Canvas.GetLeft(patate) + VITESSE_JOUEUR);
+
+
+
+                //// FOR THE BACKGROUND TO MOVE 
+                //Canvas.SetLeft(background, Canvas.GetLeft(background) + VITESSE_JOUEUR); // Vitesse
+                //Canvas.SetLeft(background3, Canvas.GetLeft(background3) + VITESSE_JOUEUR); // Vitesse
+                //Canvas.SetLeft(background2, Canvas.GetLeft(background2) + VITESSE_JOUEUR); // Vitesse
 
 
                 // Loop the backgrounds when it goes off-screen
 
-                if (Canvas.GetLeft(background3) > 0)
-                {
-                    Canvas.SetLeft(background, 0);
-                    Canvas.SetLeft(background2, background.ActualWidth);
-                    Canvas.SetLeft(background3, -background.ActualWidth);
-                } 
+
+
             }
 
             // When launching the game, the player goes down to hit the ground
@@ -202,11 +238,11 @@ namespace SAE_1._01_1._02
             // moves the ennemi horizontally to the left by 5 units.
             Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) - VITESSE_ENNEMI);
 
-            tempsText.Content = "Temps : " + temps; 
+            tempsText.Content = "Temps : " + temps;
 
             // Setup 3 Hitboxs
             joueurHitBox = new Rect(Canvas.GetLeft(joueur), Canvas.GetTop(joueur), joueur.Width - 15, joueur.Height);
-            ennemiHitBox = new Rect(Canvas.GetLeft(ennemi), Canvas.GetTop(ennemi),  ennemi.Width, ennemi.Height);
+            ennemiHitBox = new Rect(Canvas.GetLeft(ennemi), Canvas.GetTop(ennemi), ennemi.Width, ennemi.Height);
             solHitBox = new Rect(Canvas.GetLeft(sol), Canvas.GetTop(sol), sol.Width, sol.Height);
             platformsHitBox = new Rect(Canvas.GetLeft(imgPlateforme), Canvas.GetTop(imgPlateforme), imgPlateforme.Width, imgPlateforme.Height);
             fromageHitBox = new Rect(Canvas.GetLeft(fromage), Canvas.GetTop(fromage), fromage.Width, fromage.Height);
@@ -256,7 +292,7 @@ namespace SAE_1._01_1._02
             {
                 // Reduce the player speed when jumping
                 speed = -10;
-                
+
                 // Force limits how far the player can actually jump 
                 force -= 1;
             }
@@ -344,7 +380,7 @@ namespace SAE_1._01_1._02
                 compteurFromages = 0;
                 compteurCharcuteries = 0;
                 compteurPatates = 0;
-                tempsText.Content = "Temps : " + temps + " \nPress Enter to play again !";
+                tempsText.Content = "Temps : " + temps + " \nAppuyer entrer pour rejouer !";
                 compteurFromage.Content = compteurFromages;
                 compteurCharcuterie.Content = compteurCharcuteries;
                 compteurPatate.Content = compteurPatates;
@@ -362,6 +398,8 @@ namespace SAE_1._01_1._02
 
             }
             RunSpriteEnnemi(spriteIndex);
+
+
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -386,116 +424,122 @@ namespace SAE_1._01_1._02
             // When Escape is press, the timer (timerJeu) stops.
             if (e.Key == Key.Escape)
             {
-                    isPaused = true;
-                    timerJeu.Stop();
+                isPaused = true;
+                timerJeu.Stop();
                 return;
             }
-                #if DEBUG
-                Console.WriteLine(e.Key);    // Affichage dans la console de la "Key pressed"
-                #endif
+#if DEBUG
+            Console.WriteLine(e.Key);    // Affichage dans la console de la "Key pressed"
+#endif
             if (e.Key == Key.Right)
             {
                 goDroite = true;
             }
             if (e.Key == Key.Left)
             {
-                goGauche = true;
-            }
-            if (!gameOver && !isPaused)
-            {
-                
-                // Pour faire défiler les éléments quand on va à droite
-                if (e.Key == Key.Right && gameOver == false)
+                if (Canvas.GetLeft(joueur) > 0) // Vérification de la limite gauche
                 {
-                    RunSprite(spriteIndex);
-                    imgNewRunner01_Droite.Source = newRunner_01_Droite;
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + VITESSE_JOUEUR);
-
-                    // Move the actual plateforme at the same speed as the player but inversely
-                    Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) - VITESSE_JOUEUR);
-
-                    // Move the actual fromage at the same speed as the player but inversely
-                    Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) - VITESSE_JOUEUR);
-
-                    // Move the actual charcuterie at the same speed as the player but inversely
-                    Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) - VITESSE_JOUEUR);
-
-                    // Move the actual patate at the same speed as the player but inversely
-                    Canvas.SetLeft(patate, Canvas.GetLeft(patate) - VITESSE_JOUEUR);
-
-                    // Prevent player from moving off the left side of the screen
-                    if (Canvas.GetLeft(joueur) > this.ActualWidth - joueur.Width)
-                        Canvas.SetLeft(joueur, this.ActualWidth - joueur.Width);
-
-                    // FOR THE BACKGROUND TO MOVE 
-                    Canvas.SetLeft(background, Canvas.GetLeft(background) - VITESSE_JOUEUR); // Vitesse
-                    Canvas.SetLeft(background2, Canvas.GetLeft(background2) - VITESSE_JOUEUR); // Vitesse 
-                    Canvas.SetLeft(background3, Canvas.GetLeft(background3) - VITESSE_JOUEUR); // Vitesse 
-
-                    // Loop the backgrounds when it goes off-screen
-                    if (Canvas.GetLeft(background) < -background.ActualWidth)
-                    {
-                        Canvas.SetLeft(background, 0);
-                        Canvas.SetLeft(background2, background.ActualWidth);
-                        Canvas.SetLeft(background3, -background.ActualWidth);
-                    }
-                    Console.WriteLine(Canvas.GetLeft(background));
-
-                    double positionActuelle = Canvas.GetLeft(joueur);
-                    double distanceDeplacement = positionActuelle - dernierePositionX;
-                    distanceParcourue += Math.Abs(distanceDeplacement);
-                    dernierePositionX = positionActuelle;
-                    compteurDistance.Content = $"Distance: {Math.Round(distanceParcourue)} pixels";
-                }
-
-                // Pour faire défiler les éléments quand on va à gauche
-                if (e.Key == Key.Left && gameOver == false)
-                {
-                    RunSpriteGauche(spriteIndex);
-                    imgNewRunner01_Droite.Source = newRunner_01_Gauche;
-
-                    // Move the actual player character
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - VITESSE_JOUEUR);
-
-                    // Move the actual plateforme at the same speed as the player but inversely
-                    Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) + VITESSE_JOUEUR);
-
-                    // Move the actual fromage at the same speed as the player but inversely
-                    Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) + VITESSE_JOUEUR);
-
-                    // Move the actual charcuterie at the same speed as the player but inversely
-                    Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) + VITESSE_JOUEUR);
-
-                    // Move the actual patate at the same speed as the player but inversely
-                    Canvas.SetLeft(patate, Canvas.GetLeft(patate) + VITESSE_JOUEUR);
-
-                    // Prevent player from moving off the left side of the screen
-                    if (Canvas.GetLeft(joueur) < 0)
-                        Canvas.SetLeft(joueur, 0);
-
-                    // FOR THE BACKGROUND TO MOVE 
-                    Canvas.SetLeft(background, Canvas.GetLeft(background) + VITESSE_JOUEUR); // Vitesse
-                    Canvas.SetLeft(background3, Canvas.GetLeft(background3) + VITESSE_JOUEUR); // Vitesse
-                    Canvas.SetLeft(background2, Canvas.GetLeft(background2) + VITESSE_JOUEUR); // Vitesse
-
-
-                    // Loop the backgrounds when it goes off-screen
-
-                    if (Canvas.GetLeft(background3) > 0)
-                    {
-                        Canvas.SetLeft(background, 0);
-                        Canvas.SetLeft(background2, background.ActualWidth);
-                        Canvas.SetLeft(background3, -background.ActualWidth);
-                    }
-
-                    // Pour compter la distance parcourue
-                    double positionActuelle = Canvas.GetLeft(joueur);
-                    double distanceDeplacement = positionActuelle - dernierePositionX;
-                    distanceParcourue -= Math.Abs(distanceDeplacement);
-                    dernierePositionX = positionActuelle;
-                    compteurDistance.Content = $"Distance: {Math.Round(distanceParcourue)} pixels";
+                    goGauche = true;
                 }
             }
+
+            //if (!gameOver && !isPaused)
+            //{
+
+            //    // Pour faire défiler les éléments quand on va à droite
+            //    /*if (e.Key == Key.Right && gameOver == false)
+            //    {
+            //        RunSprite(spriteIndex);
+            //        imgNewRunner01_Droite.Source = newRunner_01_Droite;
+            //        Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + VITESSE_JOUEUR);
+
+            //        // Move the actual plateforme at the same speed as the player but inversely
+            //        Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) - VITESSE_JOUEUR);
+
+            //        // Move the actual fromage at the same speed as the player but inversely
+            //        Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) - VITESSE_JOUEUR);
+
+            //        // Move the actual charcuterie at the same speed as the player but inversely
+            //        Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) - VITESSE_JOUEUR);
+
+            //        // Move the actual patate at the same speed as the player but inversely
+            //        Canvas.SetLeft(patate, Canvas.GetLeft(patate) - VITESSE_JOUEUR);
+
+            //        // Prevent player from moving off the left side of the screen
+            //        //if (Canvas.GetLeft(joueur) > this.ActualWidth - joueur.Width)
+            //        //    Canvas.SetLeft(joueur, this.ActualWidth - joueur.Width);
+
+            //        // FOR THE BACKGROUND TO MOVE 
+            //        Canvas.SetLeft(background, Canvas.GetLeft(background) - VITESSE_JOUEUR); // Vitesse
+            //        Canvas.SetLeft(background2, Canvas.GetLeft(background2) - VITESSE_JOUEUR); // Vitesse 
+            //        ////Canvas.SetLeft(background3, Canvas.GetLeft(background3) - VITESSE_JOUEUR); // Vitesse 
+
+            //        // Loop the backgrounds when it goes off-screen
+            //        if (Canvas.GetLeft(background) < -background.ActualWidth)
+            //        {
+            //            Canvas.SetLeft(background, 0);
+            //            Canvas.SetLeft(background2, background.ActualWidth);
+            //            //Canvas.SetLeft(background3, -background.ActualWidth);
+            //        }
+            //        Console.WriteLine(Canvas.GetLeft(background));
+
+            //        double positionActuelle = Canvas.GetLeft(joueur);
+            //        double distanceDeplacement = positionActuelle - dernierePositionX;
+            //        distanceParcourue += Math.Abs(distanceDeplacement);
+            //        dernierePositionX = positionActuelle;
+            //        compteurDistance.Content = $"Distance: {Math.Round(distanceParcourue)} pixels";
+            //    }
+            //    */
+            //    // Pour faire défiler les éléments quand on va à gauche
+            //    //if (e.Key == Key.Left && gameOver == false)
+            //    //{
+            //    //    RunSpriteGauche(spriteIndex);
+            //    //    imgNewRunner01_Droite.Source = newRunner_01_Gauche;
+
+            //    //    // Move the actual player character
+            //    //    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - VITESSE_JOUEUR);
+
+            //    //    // Move the actual plateforme at the same speed as the player but inversely
+            //    //    Canvas.SetLeft(imgPlateforme, Canvas.GetLeft(imgPlateforme) + VITESSE_JOUEUR);
+
+            //    //    // Move the actual fromage at the same speed as the player but inversely
+            //    //    Canvas.SetLeft(fromage, Canvas.GetLeft(fromage) + VITESSE_JOUEUR);
+
+            //    //    // Move the actual charcuterie at the same speed as the player but inversely
+            //    //    Canvas.SetLeft(charcuterie, Canvas.GetLeft(charcuterie) + VITESSE_JOUEUR);
+
+            //    //    // Move the actual patate at the same speed as the player but inversely
+            //    //    Canvas.SetLeft(patate, Canvas.GetLeft(patate) + VITESSE_JOUEUR);
+
+            //    //    // Prevent player from moving off the left side of the screen
+            //    //    if (Canvas.GetLeft(joueur) < 0)
+            //    //        Canvas.SetLeft(joueur, 0);
+
+            //    //    // FOR THE BACKGROUND TO MOVE 
+            //    //    Canvas.SetLeft(background, Canvas.GetLeft(background) + VITESSE_JOUEUR); // Vitesse
+            //    //                                                                             //Canvas.SetLeft(background3, Canvas.GetLeft(background3) + VITESSE_JOUEUR); // Vitesse
+            //    //    Canvas.SetLeft(background2, Canvas.GetLeft(background2) + VITESSE_JOUEUR); // Vitesse
+
+
+            //    //    // Loop the backgrounds when it goes off-screen
+
+            //    //    //if (Canvas.GetLeft(background3) > 0)
+            //    //    //{
+            //    //    //    Canvas.SetLeft(background, 0);
+            //    //    //    Canvas.SetLeft(background2, background.ActualWidth);
+            //    //    //    Canvas.SetLeft(background3, -background.ActualWidth);
+            //    //    //}
+
+            //    //    // Pour compter la distance parcourue
+            //    //    double positionActuelle = Canvas.GetLeft(joueur);
+            //    //    double distanceDeplacement = positionActuelle - dernierePositionX;
+            //    //    distanceParcourue -= Math.Abs(distanceDeplacement);
+            //    //    dernierePositionX = positionActuelle;
+            //    //    compteurDistance.Content = $"Distance: {Math.Round(distanceParcourue)} pixels";
+            //    //}
+            //    
+            //}
+
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -508,19 +552,19 @@ namespace SAE_1._01_1._02
             {
                 goGauche = false;
             }
-            
+
             // if the space key is pressed AND jumping boolean is false AND playerHitBox touch the ennemieHitBox
             if (e.Key == Key.Space && !saut && !joueurHitBox.IntersectsWith(ennemiHitBox))
             {
-              saut = true;     
-              force = 15;
-              speed = -12;
+                saut = true;
+                force = 15;
+                speed = -12;
 
-              // change the player sprite so it looks like he's jumping
-              playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img prof/newRunner_02.gif")); // newRunner_02 use when jumping 
+                // change the player sprite so it looks like he's jumping
+                playerSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img prof/newRunner_02.gif")); // newRunner_02 use when jumping 
 
             }
-            
+
         }
 
         private void StartGame()
@@ -547,7 +591,7 @@ namespace SAE_1._01_1._02
 
             // Set the fromage 
             Canvas.SetLeft(fromage, 200); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(fromage) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
-            Canvas.SetTop(fromage,  200);
+            Canvas.SetTop(fromage, 200);
 
             // Set the charcuterie 
             Canvas.SetLeft(charcuterie, 300); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(charcuterie) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
@@ -707,6 +751,30 @@ namespace SAE_1._01_1._02
             musiqueJeu.Position = TimeSpan.Zero;
             musiqueJeu.Play();
         }
+
+        //private void DeplacementEnnemi()
+        //{
+        //    // Déplacement horizontal du chien
+        //    double nouvellePositionX = Canvas.GetLeft(ennemiFinal) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemiFinal));
+        //    if (nouvellePositionX >= 0 && nouvellePositionX + ennemiFinal.Width <= background.ActualWidth)
+        //    {
+        //        Canvas.SetLeft(ennemiFinal, nouvellePositionX);
+
+        //    }
+
+        //    // Déplacement vertical du chien
+        //    double nouvellePositionY = Canvas.GetTop(ennemiFinal) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemiFinal));
+        //    if (nouvellePositionY >= 0 && nouvellePositionY + ennemiFinal.Height <= background.ActualHeight)
+        //    {
+        //        Canvas.SetTop(ennemiFinal, nouvellePositionY);
+
+        //    }
+
+
+        //}
+
+
+
     }
 }
-    
+

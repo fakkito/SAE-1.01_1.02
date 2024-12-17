@@ -89,6 +89,14 @@
                 <ImageBrush ImageSource="/img/ennemi_1.png" />
             </Rectangle.Fill>
         </Rectangle>
+
+        <Rectangle x:Name="ennemiFinal" Canvas.Left="676" Canvas.Top="285" Width="108" Height="93" >
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Mechant.png-removebg-preview.png"/>
+
+            </Rectangle.Fill>
+
+        </Rectangle>
         <Label
             Name="tempsText"
             Content="Temps : "
