@@ -155,11 +155,11 @@
         </Rectangle>
         <Rectangle
             Name="imgPlateforme"
+            Tag="platform"
             Canvas.Left="400"
             Canvas.Top="270"
             Width="120"
-            Height="30"
-            Tag="Collide">
+            Height="30">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/platforms.png" />
             </Rectangle.Fill>
@@ -170,7 +170,7 @@
             Canvas.Top="187"
             Width="25"
             Height="25"
-            Tag="elementFromage">
+            Tag="food">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/fromage.png" />
             </Rectangle.Fill>
@@ -181,7 +181,7 @@
             Canvas.Top="188"
             Width="25"
             Height="25"
-            Tag="elementCharcuterie">
+            Tag="food">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/charcuterie.png" />
             </Rectangle.Fill>
@@ -192,7 +192,7 @@
             Canvas.Top="188"
             Width="25"
             Height="25"
-            Tag="elementPatate">
+            Tag="food">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/patate.png" />
             </Rectangle.Fill>
