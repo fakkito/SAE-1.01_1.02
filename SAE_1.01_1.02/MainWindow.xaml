@@ -90,12 +90,10 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <Rectangle x:Name="ennemiFinal" Canvas.Left="676" Canvas.Top="285" Width="108" Height="93" >
+        <Rectangle x:Name="boss" Width="108" Height="93" FlowDirection="RightToLeft" >
             <Rectangle.Fill>
-                <ImageBrush ImageSource="Mechant.png-removebg-preview.png"/>
-
+                <ImageBrush ImageSource="/img/Mechant.png"/>
             </Rectangle.Fill>
-
         </Rectangle>
         <Label
             Name="tempsText"

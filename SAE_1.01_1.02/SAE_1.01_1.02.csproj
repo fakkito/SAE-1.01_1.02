@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <RootNamespace>SAE_1._01_1._02</RootNamespace>
     <Nullable>enable</Nullable>
@@ -36,6 +36,7 @@
     <None Remove="img\fond_ecran_menu.jpg" />
     <None Remove="img\fromage.png" />
     <None Remove="img\maison_fromage.png" />
+    <None Remove="img\Mechant.png" />
     <None Remove="img\mouse.png" />
     <None Remove="img\newRunner_01_gauche.gif" />
     <None Remove="img\newRunner_02_gauche.gif" />
@@ -129,6 +130,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\maison_fromage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Mechant.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\mouse.png">

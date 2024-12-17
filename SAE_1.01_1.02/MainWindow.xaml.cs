@@ -37,11 +37,15 @@ namespace SAE_1._01_1._02
         Rect fromageHitBox;
         Rect charcuterieHitBox;
         Rect patateHitBox;
+        Rect bossHitBox;
 
         bool saut;
 
         int force = 20; // Equal the gravity
         int speed = 50; // Force qui est opposé à la gravité
+        int widthSpawnElement = 800;  // Largeur de la fenêtre
+        int heightSpawnElement = 450; // Hauteur de la fenêtre
+        int compteurBackground = 0; // compteur du nombre de fois que se reset les backgrounds
 
         Random rnd = new Random();
 
@@ -60,13 +64,17 @@ namespace SAE_1._01_1._02
         ImageBrush backgroundSprite = new ImageBrush();
         ImageBrush ennemiSprite = new ImageBrush();
 
-        int[] imgPlateformePosition = { 260, 250, 240, 245, 255 }; // Positions à laquelle spawn aléatoirement les plateformes
+        // Positions à laquelle spawn aléatoirement les éléments dans une tranche donnée en Y
+        int[] imgPlateformePosition = { 240, 250, 260, 270 }; 
+        int[] fromagePosition = { 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320 };
+        int[] charcuteriePosition = { 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320 };
+        int[] patatePosition = { 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320 };
 
-        int tempsEcoule = 0;
-        int temps = 500;
-        int compteurFromages = 0;
-        int compteurCharcuteries = 0;
-        int compteurPatates = 0;
+        int tempsEcoule;
+        int temps;
+        int compteurFromages;
+        int compteurCharcuteries;
+        int compteurPatates;
 
         private double distanceParcourue = 0;
         private double dernierePositionX;
@@ -78,7 +86,6 @@ namespace SAE_1._01_1._02
             InitializeComponent();
             WindowMenu menu = new WindowMenu();
             menu.ShowDialog();
-
 
             InitBitmaps();
             mainCanvas.Focus(); // Permet de capturer immédiatement les événements clavier
@@ -92,7 +99,7 @@ namespace SAE_1._01_1._02
             //background2.Fill = backgroundSprite;
             //background3.Fill = backgroundSprite;
 
-            // Dans le constructeur, initialisez la position de départ
+            // Récupération de la position de départ du joueur
             dernierePositionX = Canvas.GetLeft(joueur);
 
             InitMusique();
@@ -112,7 +119,6 @@ namespace SAE_1._01_1._02
 
         private void GameEngine(object? sender, EventArgs e)
         {
-            
             tempsEcoule++;
             // Décrémenter le temps toutes les 50 appels (environ toutes les secondes)
             if (tempsEcoule % 50 == 0)
@@ -144,13 +150,24 @@ namespace SAE_1._01_1._02
                 Canvas.SetLeft(background2, Canvas.GetLeft(background2) - VITESSE_JOUEUR);
                 Canvas.SetLeft(background3, Canvas.GetLeft(background3) - VITESSE_JOUEUR);
 
+                Random random = new Random();  // Instance de Random pour générer des nombres aléatoires
+
                 //Logique de bouclage des arrière - plans
                 if (Canvas.GetLeft(background) < -background.ActualWidth)
                 {
                     Canvas.SetLeft(background, 0);
                     Canvas.SetLeft(background2, background.ActualWidth);
                     Canvas.SetLeft(background3, -background.ActualWidth);
+
+                    compteurBackground++;
+
+                    // Positionne les éléments aléatoirement dans la fenêtre en fonction des listes avec les valeurs définies
+                    Canvas.SetTop(fromage, fromagePosition[rnd.Next(0, fromagePosition.Length)]);
+                    Canvas.SetTop(charcuterie, charcuteriePosition[rnd.Next(0, charcuteriePosition.Length)]);
+                    Canvas.SetTop(patate, patatePosition[rnd.Next(0, patatePosition.Length)]);
+                    Canvas.SetTop(imgPlateforme, imgPlateformePosition[rnd.Next(0, imgPlateformePosition.Length)]);
                 }
+                
                 // Prevent player from moving off the right side of the screen
                 if (Canvas.GetLeft(joueur) > 754 - joueur.Width)
                     Canvas.SetLeft(joueur, 754 - joueur.Width);
@@ -184,6 +201,13 @@ namespace SAE_1._01_1._02
                         Canvas.SetLeft(background, 0);
                         Canvas.SetLeft(background2, background.ActualWidth);
                         Canvas.SetLeft(background3, -background.ActualWidth);
+
+                        // Positionne les éléments aléatoirement dans la fenêtre en fonction des listes avec les valeurs définies
+                        Canvas.SetTop(fromage, fromagePosition[rnd.Next(0, fromagePosition.Length)]);
+                        Canvas.SetTop(charcuterie, charcuteriePosition[rnd.Next(0, charcuteriePosition.Length)]);
+                        Canvas.SetTop(patate, patatePosition[rnd.Next(0, patatePosition.Length)]);
+                        Canvas.SetTop(imgPlateforme, imgPlateformePosition[rnd.Next(0, imgPlateformePosition.Length)]);
+
                     }
                     // Prevent player from moving off the left side of the screen
                     if (Canvas.GetLeft(joueur) < 46)
@@ -248,6 +272,7 @@ namespace SAE_1._01_1._02
             fromageHitBox = new Rect(Canvas.GetLeft(fromage), Canvas.GetTop(fromage), fromage.Width, fromage.Height);
             charcuterieHitBox = new Rect(Canvas.GetLeft(charcuterie), Canvas.GetTop(charcuterie), charcuterie.Width, charcuterie.Height);
             patateHitBox = new Rect(Canvas.GetLeft(patate), Canvas.GetTop(patate), patate.Width, patate.Height);
+            bossHitBox = new Rect(Canvas.GetLeft(boss), Canvas.GetTop(boss), boss.Width, boss.Height);
 
             // Actions when the player lands on the floor
             if (joueurHitBox.IntersectsWith(solHitBox))
@@ -361,7 +386,13 @@ namespace SAE_1._01_1._02
                 compteurPatates += 1;
                 compteurPatate.Content = compteurPatates;
             }
-
+            if (compteurBackground >= 5)
+            {
+                boss.Opacity = 100;
+                Canvas.SetLeft(boss, 650);
+                Canvas.SetTop(boss, 321);
+                Console.WriteLine($"Boss spawning. Background counter : {compteurBackground}");
+            }
             if (gameOver == true)
             {
                 // Visibilité de la HitBox de l'ennemi
@@ -491,15 +522,24 @@ namespace SAE_1._01_1._02
 
             // Set the plateforme 
             Canvas.SetLeft(imgPlateforme, 300); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(imgPlateforme) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
-            Canvas.SetTop(imgPlateforme, 250);
+            Canvas.SetTop(imgPlateforme, imgPlateformePosition[rnd.Next(0, imgPlateformePosition.Length)]);
 
             // Set the fromage 
             Canvas.SetLeft(fromage, 200); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(fromage) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
-            Canvas.SetTop(fromage, 200);
+            Canvas.SetTop(fromage, fromagePosition[rnd.Next(0, fromagePosition.Length)]);
 
             // Set the charcuterie 
             Canvas.SetLeft(charcuterie, 300); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(charcuterie) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
-            Canvas.SetTop(charcuterie, 200);
+            Canvas.SetTop(charcuterie, charcuteriePosition[rnd.Next(0, charcuteriePosition.Length)]);
+
+            // Set the patate 
+            Canvas.SetLeft(patate, 400); // Obliger de mettre des coordonnées car si j'utilise Canvas.GetLeft(charcuterie) et Canvas.GetTop quand le joueur touche un obstacle ca reset pas
+            Canvas.SetTop(patate, patatePosition[rnd.Next(0, patatePosition.Length)]);
+
+            // Set the Boss
+            Canvas.SetLeft(boss, 700);
+            Canvas.SetTop(boss, 200);
+            boss.Opacity = 0;
             RunSprite(1);
 
             ennemiSprite.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/ennemi_1.png"));
@@ -508,7 +548,7 @@ namespace SAE_1._01_1._02
             saut = false;
             gameOver = false;
             tempsEcoule = 0;
-            temps = 500;
+            temps = 180;
             compteurFromage.Content = 0;
             compteurCharcuterie.Content = 0;
             compteurPatate.Content = 0;
@@ -673,8 +713,6 @@ namespace SAE_1._01_1._02
 
 
         //}
-
-        
 
     }
 }
