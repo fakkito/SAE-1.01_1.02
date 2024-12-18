@@ -29,7 +29,7 @@ namespace SAE_1._01_1._02
         private void ReprendreButton_Click(object sender, RoutedEventArgs e)
         {
 
-            
+            MessageBox.Show("Appuyer sur la touche Flèche Droite pour reprendre le jeu");
             this.Close(); // Ferme la fenêtre et retourne au jeu
            
             

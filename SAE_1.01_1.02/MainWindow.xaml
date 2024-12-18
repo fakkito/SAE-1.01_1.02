@@ -24,18 +24,6 @@
             <ImageBrush x:Name="imageFond" ImageSource="/img/fond_ecran_automne.jpg" />
         </Canvas.Background>
 
-        <Image
-            x:Name="imgNewRunner01_Droite"
-            Canvas.Left="239"
-            Canvas.Top="200"
-            Width="108"
-            Height="122"
-            Source="/newRunner_01_gauche.gif"
-            Stretch="Fill">
-            <Image.OpacityMask>
-                <ImageBrush />
-            </Image.OpacityMask>
-        </Image>
         <Rectangle
             Name="background"
             Canvas.Left="0"
@@ -57,31 +45,32 @@
         <Rectangle
             Name="sol"
             Canvas.Left="0"
-            Canvas.Top="368"
+            Canvas.Top="305"
             Width="800"
             Height="32"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Fill="Black" />
+            Fill="Black"
+            Opacity="10" />
         <Rectangle
             Name="joueur"
-            Canvas.Left="46"
-            Canvas.Top="270"
+            Canvas.Left="47"
+            Canvas.Top="201"
             Width="67"
             Height="99"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Tag="User">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="/img prof/newRunner_01.gif" />
+                <ImageBrush ImageSource="/img/Run_1.png" />
             </Rectangle.Fill>
         </Rectangle>
         <Rectangle
             Name="ennemi"
-            Canvas.Left="573"
-            Canvas.Top="320"
+            Canvas.Left="570"
+            Canvas.Top="255"
             Width="40"
-            Height="49"
+            Height="50"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             RenderTransformOrigin="0.188,1.225">
@@ -266,5 +255,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Image Name="Run_1_Gauchee" Height="72" Canvas.Left="491" Source="/img/Run_1_Gauche.png" Stretch="Fill" Canvas.Top="178" Width="44" Opacity="0"/>
+        <Image Name="Run_1_Droite" Height="72" Canvas.Left="427" Source="/img/Run_1.png" Stretch="Fill" Canvas.Top="178" Width="44" Opacity="0"/>
     </Canvas>
 </Window>

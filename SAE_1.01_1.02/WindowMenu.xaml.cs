@@ -27,28 +27,19 @@ namespace SAE_1._01_1._02
 
         private void bouttonCredit_Click(object sender, RoutedEventArgs e)
         {
-
-
-
             WindowCredits creditsJeu = new WindowCredits();
             this.Close();
             creditsJeu.ShowDialog();
-
-
         }
 
         private void bouttonQuitter_Click(object sender, RoutedEventArgs e)
         {
-
             this.DialogResult = false;
             Application.Current.Shutdown();
-
         }
         private void bouttonJouer_Click(object sender, RoutedEventArgs e)
         {
-
             this.DialogResult = true;
-
         }
     }
 }

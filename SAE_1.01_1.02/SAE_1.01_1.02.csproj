@@ -11,15 +11,6 @@
 
   <ItemGroup>
     <None Remove="charcuterie.png" />
-    <None Remove="img prof\newRunner_01.gif" />
-    <None Remove="img prof\newRunner_02.gif" />
-    <None Remove="img prof\newRunner_03.gif" />
-    <None Remove="img prof\newRunner_04.gif" />
-    <None Remove="img prof\newRunner_05.gif" />
-    <None Remove="img prof\newRunner_06.gif" />
-    <None Remove="img prof\newRunner_07.gif" />
-    <None Remove="img prof\newRunner_08.gif" />
-    <None Remove="img prof\obstacle.png" />
     <None Remove="img2\FondFromage.jpg.png" />
     <None Remove="img\arme.png" />
     <None Remove="img\charcuterie.png" />
@@ -36,53 +27,42 @@
     <None Remove="img\fond_ecran_hiver.jpg" />
     <None Remove="img\fond_ecran_menu.jpg" />
     <None Remove="img\fromage.png" />
+    <None Remove="img\image_1_Droite.png" />
+    <None Remove="img\image_2_Droite.png" />
+    <None Remove="img\image_3_Droite.png" />
+    <None Remove="img\image_4_Droite.png" />
+    <None Remove="img\image_5_Droite.png" />
+    <None Remove="img\image_6_Droite.png" />
+    <None Remove="img\image_7_Droite.png" />
+    <None Remove="img\image_8_Droite.png" />
     <None Remove="img\maison_fromage.png" />
     <None Remove="img\Mechant.png" />
-    <None Remove="img\mouse.png" />
-    <None Remove="img\newRunner_01_gauche.gif" />
-    <None Remove="img\newRunner_02_gauche.gif" />
-    <None Remove="img\newRunner_03_gauche.gif" />
-    <None Remove="img\newRunner_04_gauche.gif" />
-    <None Remove="img\newRunner_05_gauche.gif" />
-    <None Remove="img\newRunner_06_gauche.gif" />
-    <None Remove="img\newRunner_07_gauche.gif" />
-    <None Remove="img\newRunner_08_gauche.gif" />
     <None Remove="img\patate.png" />
     <None Remove="img\platforms.png" />
+    <None Remove="img\Run_1.png" />
+    <None Remove="img\Run_1_Gauche.png" />
+    <None Remove="img\Run_2.png" />
+    <None Remove="img\Run_2_Gauche.png" />
+    <None Remove="img\Run_3.png" />
+    <None Remove="img\Run_3_Gauche.png" />
+    <None Remove="img\Run_4.png" />
+    <None Remove="img\Run_4_Gauche.png" />
+    <None Remove="img\Run_5.png" />
+    <None Remove="img\Run_5_Gauche.png" />
+    <None Remove="img\Run_6.png" />
+    <None Remove="img\Run_6_Gauche.png" />
+    <None Remove="img\Run_7.png" />
+    <None Remove="img\Run_7_Gauche.png" />
+    <None Remove="img\Run_8.png" />
+    <None Remove="img\Run_8_Gauche.png" />
     <None Remove="img\salade.png" />
+    <None Remove="Run_1_Gauche.png" />
     <None Remove="sons\ambiance-happy-170215.mp3" />
     <None Remove="sons\victory-is-here-215341.mp3" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="charcuterie.png" />
-    <Resource Include="img prof\newRunner_01.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img prof\newRunner_02.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img prof\newRunner_03.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img prof\newRunner_04.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img prof\newRunner_05.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img prof\newRunner_06.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img prof\newRunner_07.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img prof\newRunner_08.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img prof\obstacle.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="img2\FondFromage.jpg.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -131,37 +111,34 @@
     <Resource Include="img\fromage.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\image_1_Droite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\image_2_Droite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\image_3_Droite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\image_4_Droite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\image_5_Droite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\image_6_Droite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\image_7_Droite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\image_8_Droite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\maison_fromage.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\Mechant.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\mouse.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\newRunner_01_gauche.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\newRunner_02_gauche.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\newRunner_03_gauche.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\newRunner_04_gauche.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\newRunner_05_gauche.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\newRunner_06_gauche.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\newRunner_07_gauche.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\newRunner_08_gauche.gif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\patate.png">
@@ -170,9 +147,58 @@
     <Resource Include="img\platforms.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\Run_1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_1_Gauche.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_2_Gauche.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_3.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_3_Gauche.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_4.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_4_Gauche.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_5.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_5_Gauche.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_6.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_6_Gauche.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_7.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_7_Gauche.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_8.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Run_8_Gauche.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\salade.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Run_1_Gauche.png" />
     <Resource Include="sons\ambiance-happy-170215.mp3" />
     <Resource Include="sons\victory-is-here-215341.mp3" />
   </ItemGroup>
