@@ -21,6 +21,7 @@
     <None Remove="img prof\newRunner_08.gif" />
     <None Remove="img prof\obstacle.png" />
     <None Remove="img2\FondFromage.jpg.png" />
+    <None Remove="img\arme.png" />
     <None Remove="img\charcuterie.png" />
     <None Remove="img\ennemi_1.png" />
     <None Remove="img\ennemi_2.png" />
@@ -48,9 +49,7 @@
     <None Remove="img\newRunner_08_gauche.gif" />
     <None Remove="img\patate.png" />
     <None Remove="img\platforms.png" />
-    <None Remove="Mechant.png-removebg-preview.png" />
-    <None Remove="newRunner_01.gif" />
-    <None Remove="newRunner_01_gauche.gif" />
+    <None Remove="img\salade.png" />
     <None Remove="sons\ambiance-happy-170215.mp3" />
     <None Remove="sons\victory-is-here-215341.mp3" />
   </ItemGroup>
@@ -85,6 +84,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img2\FondFromage.jpg.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\arme.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\charcuterie.png">
@@ -168,11 +170,9 @@
     <Resource Include="img\platforms.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Mechant.png-removebg-preview.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Resource Include="img\salade.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="newRunner_01.gif" />
-    <Resource Include="newRunner_01_gauche.gif" />
     <Resource Include="sons\ambiance-happy-170215.mp3" />
     <Resource Include="sons\victory-is-here-215341.mp3" />
   </ItemGroup>

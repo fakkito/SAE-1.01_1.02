@@ -90,7 +90,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <Rectangle x:Name="boss" Width="108" Height="93" FlowDirection="RightToLeft" >
+        <Rectangle x:Name="boss" Width="108" Height="93" FlowDirection="RightToLeft" HorizontalAlignment="Left" Canvas.Left="406" VerticalAlignment="Top" Canvas.Top="10" >
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/Mechant.png"/>
             </Rectangle.Fill>
@@ -132,6 +132,17 @@
             FontSize="22"
             FontWeight="Bold"
             Foreground="#FFCC9315" Canvas.Top="46" />
+        <Label
+            Name="compteurSalade"
+            Canvas.Left="752"
+            Width="38"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Content="0"
+            FontSize="22"
+            FontWeight="Bold"
+            Foreground="#FF4EA508" 
+            Canvas.Top="9" />
         <Label 
             Name="compteurDistance"
             Canvas.Left="318"
@@ -164,10 +175,10 @@
         </Rectangle>
         <Rectangle
             x:Name="fromage"
-            Canvas.Left="400"
-            Canvas.Top="187"
+            Canvas.Left="243"
+            Canvas.Top="116"
             Width="25"
-            Height="25"
+            Height="26"
             Tag="food">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/img/fromage.png" />
@@ -175,8 +186,8 @@
         </Rectangle>
         <Rectangle
             x:Name="charcuterie"
-            Canvas.Left="460"
-            Canvas.Top="188"
+            Canvas.Left="196"
+            Canvas.Top="166"
             Width="25"
             Height="25"
             Tag="food">
@@ -186,8 +197,8 @@
         </Rectangle>
         <Rectangle
             x:Name="patate"
-            Canvas.Left="500"
-            Canvas.Top="188"
+            Canvas.Left="243"
+            Canvas.Top="166"
             Width="25"
             Height="25"
             Tag="food">
@@ -195,24 +206,65 @@
                 <ImageBrush ImageSource="/img/patate.png" />
             </Rectangle.Fill>
         </Rectangle>
+        <Rectangle
+            Name="salade"
+            Canvas.Left="189"
+            Canvas.Top="110"
+            Width="32"
+            Height="38"
+            Tag="food">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/img/salade.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
         <Image
-            Canvas.Left="712"
+            Canvas.Left="717"
             Canvas.Top="137"
             Width="35"
             Height="36"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             Source="/img/fromage.png"
             Stretch="Fill" />
         <Image
-            Canvas.Left="713"
+            Canvas.Left="717"
             Canvas.Top="92"
-            Width="34"
-            Height="36"
+            Width="30"
+            Height="37"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             Source="/img/charcuterie.png"
             Stretch="Fill" />
-        <Image Height="30" Canvas.Left="717" Source="/img/patate.png" Stretch="Fill" Canvas.Top="51" Width="30"/>
+        <Image Height="30" 
+               Canvas.Left="717" 
+               Source="/img/patate.png" 
+               Stretch="Fill" 
+               Canvas.Top="51" 
+               Width="30"/>
+        <Image Height="37" 
+               Canvas.Left="717" 
+               Source="/img/salade.png" 
+               Stretch="Fill" 
+               Canvas.Top="14" 
+               Width="30" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top"/>
+        <Image Name="Arme"
+               Height="32" 
+               Canvas.Left="578" 
+               Source="/img/arme.png" 
+               Stretch="Fill" 
+               Canvas.Top="53" 
+               Width="32" 
+               RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="43.844"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
     </Canvas>
 </Window>
